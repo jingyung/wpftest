@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3D24FE56-4B0A-40DC-AF27-2BEA1F814A8A}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>wpf.control</RootNamespace>
+    <AssemblyName>wpf.control</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomWindow.cs" />
+    <Page Include="Themes\Aero.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="CustomControl1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Themes\Luna.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enums\MdiLayout.cs" />
+    <Compile Include="Enums\ThemeType.cs" />
+    <Compile Include="Event\ClosingEventArgs.cs" />
+    <Compile Include="MdiChild.cs" />
+    <Compile Include="MdiContainer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Aero\Close.png" />
+    <Resource Include="Themes\Aero\Maximize.png" />
+    <Resource Include="Themes\Aero\MaximizedClose.png" />
+    <Resource Include="Themes\Aero\MaximizedMinimize.png" />
+    <Resource Include="Themes\Aero\MaximizedRestore.png" />
+    <Resource Include="Themes\Aero\Minimize.png" />
+    <Resource Include="Themes\Aero\Restore.png" />
+    <Resource Include="Themes\Luna\BottomLeftFocused.png" />
+    <Resource Include="Themes\Luna\BottomLeftUnfocused.png" />
+    <Resource Include="Themes\Luna\BottomMiddleFocused.png" />
+    <Resource Include="Themes\Luna\BottomMiddleUnfocused.png" />
+    <Resource Include="Themes\Luna\BottomRightFocused.png" />
+    <Resource Include="Themes\Luna\BottomRightUnfocused.png" />
+    <Resource Include="Themes\Luna\CloseDown.png" />
+    <Resource Include="Themes\Luna\CloseNormalFocused.png" />
+    <Resource Include="Themes\Luna\CloseNormalUnfocused.png" />
+    <Resource Include="Themes\Luna\CloseOver.png" />
+    <Resource Include="Themes\Luna\LeftFocused.png" />
+    <Resource Include="Themes\Luna\LeftUnfocused.png" />
+    <Resource Include="Themes\Luna\MaximizedClose.png" />
+    <Resource Include="Themes\Luna\MaximizeDisabledFocused.png" />
+    <Resource Include="Themes\Luna\MaximizeDisabledUnfocused.png" />
+    <Resource Include="Themes\Luna\MaximizedMinimize.png" />
+    <Resource Include="Themes\Luna\MaximizeDown.png" />
+    <Resource Include="Themes\Luna\MaximizedRestore.png" />
+    <Resource Include="Themes\Luna\MaximizeNormalFocused.png" />
+    <Resource Include="Themes\Luna\MaximizeNormalUnfocused.png" />
+    <Resource Include="Themes\Luna\MaximizeOver.png" />
+    <Resource Include="Themes\Luna\MinimizeDisabledFocused.png" />
+    <Resource Include="Themes\Luna\MinimizeDisabledUnfocused.png" />
+    <Resource Include="Themes\Luna\MinimizedLeftFocused.png" />
+    <Resource Include="Themes\Luna\MinimizedLeftUnfocused.png" />
+    <Resource Include="Themes\Luna\MinimizedMiddleFocused.png" />
+    <Resource Include="Themes\Luna\MinimizedMiddleUnfocused.png" />
+    <Resource Include="Themes\Luna\MinimizeDown.png" />
+    <Resource Include="Themes\Luna\MinimizedRightFocused.png" />
+    <Resource Include="Themes\Luna\MinimizedRightUnfocused.png" />
+    <Resource Include="Themes\Luna\MinimizeNormal.png" />
+    <Resource Include="Themes\Luna\MinimizeNormalFocused.png" />
+    <Resource Include="Themes\Luna\MinimizeNormalUnfocused.png" />
+    <Resource Include="Themes\Luna\MinimizeOver.png" />
+    <Resource Include="Themes\Luna\RestoreDown.png" />
+    <Resource Include="Themes\Luna\RestoreNormalFocused.png" />
+    <Resource Include="Themes\Luna\RestoreNormalUnfocused.png" />
+    <Resource Include="Themes\Luna\RestoreOver.png" />
+    <Resource Include="Themes\Luna\RightFocused.png" />
+    <Resource Include="Themes\Luna\RightUnfocused.png" />
+    <Resource Include="Themes\Luna\TopLeftFocused.png" />
+    <Resource Include="Themes\Luna\TopLeftUnfocused.png" />
+    <Resource Include="Themes\Luna\TopMiddleFocused.png" />
+    <Resource Include="Themes\Luna\TopMiddleUnfocused.png" />
+    <Resource Include="Themes\Luna\TopRightFocused.png" />
+    <Resource Include="Themes\Luna\TopRightUnfocused.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,31 @@
+﻿<Window x:Class="Wpftest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpftest"
+        mc:Ignorable="d"
+        xmlns:mdi="clr-namespace:wpf.control;assembly=wpf.control"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <mdi:MdiContainer Name="Container">
+            <mdi:MdiContainer.Menu>
+                <Menu DockPanel.Dock="Top">
+                    <MenuItem Header="Add">
+                        <MenuItem Header="Normal Window"  Click="MenuItem_Click"  />
+                        <MenuItem Header="Fixed Window"   />
+                        <MenuItem Header="Scroll Window"  />
+                    </MenuItem>
+                    <MenuItem Header="Theme">
+                        <MenuItem Header="Generic" Name="Generic" ToolTip="Generic Visual Studio designer theme" />
+                        <MenuItem Header="Luna" Name="Luna" ToolTip="Blue Windows XP theme"   />
+                        <MenuItem Header="Aero" Name="Aero" ToolTip="Windows Vista/7 theme"   />
+                    </MenuItem>
+                    <MenuItem Header="Windows" x:Name="WindowsMenu" x:FieldModifier="private" />
+                </Menu>
+            </mdi:MdiContainer.Menu>
+           
+        </mdi:MdiContainer>
+
+    </Grid>
+</Window>
