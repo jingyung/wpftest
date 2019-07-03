@@ -68,7 +68,7 @@ namespace wpf.control
 
         private StackPanel buttonsPanel;
 
-        public MdiContainer Container { get; private set; }
+        public MdiContainer Container { get; set; }
 
         private Rect originalDimension;
 
@@ -283,9 +283,7 @@ namespace wpf.control
 
             if (eventArgs.Cancel)
                 return;
-
             Close();
-
             RaiseEvent(new RoutedEventArgs(ClosedEvent));
         }
         private void Thumb_DragStarted(object sender, DragStartedEventArgs e)
@@ -329,9 +327,7 @@ namespace wpf.control
         {
             if (Width + e.HorizontalChange < MinWidth)
                 return;
-
             Width += e.HorizontalChange;
-
             if (sender != null)
                 Container.InvalidateSize();
         }
@@ -339,9 +335,7 @@ namespace wpf.control
         {
             if (Height + e.VerticalChange < MinHeight)
                 return;
-
             Height += e.VerticalChange;
-
             if (sender != null)
                 Container.InvalidateSize();
         }
@@ -378,7 +372,6 @@ namespace wpf.control
         {
             if ((bool)e.NewValue == (bool)e.OldValue)
                 return;
-
             MdiChild mdiChild = (MdiChild)sender;
             if ((bool)e.NewValue)
             {
@@ -396,7 +389,6 @@ namespace wpf.control
         {
             MdiChild mdiChild = (MdiChild)sender;
             bool visible = (bool)e.NewValue;
-
             if (visible)
             {
                 bool maximizeVisible = true;
@@ -419,7 +411,6 @@ namespace wpf.control
             else
             {
                 bool maximizeEnabled = true;
-
                 if (mdiChild.maximizeButton != null)
                     maximizeEnabled = mdiChild.maximizeButton.IsEnabled;
 
@@ -441,7 +432,6 @@ namespace wpf.control
         {
             MdiChild mdiChild = (MdiChild)sender;
             bool visible = (bool)e.NewValue;
-
             if (visible)
             {
                 bool minimizeVisible = true;
@@ -501,14 +491,11 @@ namespace wpf.control
         {
             MdiChild mdiChild = (MdiChild)sender;
             MdiContainer mdiContainer = mdiChild.Container;
-
             WindowState previousWindowState = (WindowState)e.OldValue;
             WindowState windowState = (WindowState)e.NewValue;
-
             if (mdiChild.Container == null ||
                 previousWindowState == windowState)
                 return;
-
             if (previousWindowState == WindowState.Maximized)
             {
                 if (mdiContainer.ActiveMdiChild.WindowState != WindowState.Maximized)
@@ -520,23 +507,19 @@ namespace wpf.control
                                 mdiContainer.Children[i].MaximizeBox)
                             mdiContainer.Children[i].WindowState = WindowState.Normal;
                     }
-
                     ScrollViewer sv = (ScrollViewer)((Grid)mdiContainer.Content).Children[1];
                     sv.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
                     sv.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
                 }
-
                 mdiChild.Buttons.Children.Clear();
                 mdiChild.Buttons = null;
-
+                mdiChild.buttonsPanel.Children.Add(mdiChild.WindowOutSideButton);
                 mdiChild.buttonsPanel.Children.Add(mdiChild.minimizeButton);
                 mdiChild.buttonsPanel.Children.Add(mdiChild.maximizeButton);
                 mdiChild.buttonsPanel.Children.Add(mdiChild.closeButton);
             }
-
             if (previousWindowState == WindowState.Minimized)
                 mdiChild.minimizedPosition = mdiChild.Position;
-
             switch (windowState)
             {
                 case WindowState.Normal:
@@ -577,7 +560,6 @@ namespace wpf.control
                                     col = count % capacity;
                                 newTop = MdiChild.MinimizedHeight * row;
                                 newLeft = MdiChild.MinimizedWidth * col;
-
                                 newWindowPlace = new Rect(newLeft, newTop, MdiChild.MinimizedWidth, MdiChild.MinimizedHeight);
                                 occupied = false;
                                 foreach (Rect rect in minimizedWindows)
@@ -619,7 +601,7 @@ namespace wpf.control
 
                         mdiChild.buttonsPanel.Children.Clear();
                         StackPanel sp = new StackPanel { Orientation = Orientation.Horizontal };
-                        sp.Children.Add(mdiChild.WindowOutSideButton);
+
                         sp.Children.Add(mdiChild.minimizeButton);
                         sp.Children.Add(mdiChild.maximizeButton);
                         sp.Children.Add(mdiChild.closeButton);
@@ -647,8 +629,10 @@ namespace wpf.control
             if (open)
             {
                 CustomWindow t = new CustomWindow();
-                t.WindowStyle = WindowStyle.None;
+                t.Title = mdiChild.Title;
+                t.Container = mdiChild.Container;
                 t.Content = mdiChild.Content;
+                t.WindowOutSideBox = true;
                 t.Width = mdiChild.Width;
                 t.Height = mdiChild.Height;
                 t.Top = mdiChild.PointToScreen(mdiChild.Position).Y - mdiChild.Position.Y;

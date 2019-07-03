@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Wpftest"
         mc:Ignorable="d"
         xmlns:mdi="clr-namespace:wpf.control;assembly=wpf.control"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" >
     <Grid>
         <mdi:MdiContainer Name="Container">
             <mdi:MdiContainer.Menu>
