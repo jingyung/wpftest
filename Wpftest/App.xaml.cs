@@ -4,6 +4,8 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using System.Reflection;
+using System.Windows.Media;
 
 namespace Wpftest
 {
@@ -12,5 +14,6 @@ namespace Wpftest
     /// </summary>
     public partial class App : Application
     {
+        
     }
 }

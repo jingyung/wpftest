@@ -353,7 +353,8 @@ namespace wpf.control
                 newTop = 0;
 
             Position = new Point(newLeft, newTop);
-
+            Console.WriteLine(newLeft + " " + newTop);
+            Console.WriteLine(this.PointToScreen(new Point( newLeft, newTop)).X+ " " + this.PointToScreen(new Point(newLeft, newTop)).Y);
             Container.InvalidateSize();
         }
 
@@ -624,10 +625,12 @@ namespace wpf.control
 
         private static void WindowOutSideBoxValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
+          
             MdiChild mdiChild = (MdiChild)sender;
             bool open = (bool)e.NewValue;
             if (open)
             {
+               
                 CustomWindow t = new CustomWindow();
                 t.Title = mdiChild.Title;
                 t.Container = mdiChild.Container;
@@ -635,8 +638,9 @@ namespace wpf.control
                 t.WindowOutSideBox = true;
                 t.Width = mdiChild.Width;
                 t.Height = mdiChild.Height;
-                t.Top = mdiChild.PointToScreen(mdiChild.Position).Y - mdiChild.Position.Y;
-                t.Left = mdiChild.PointToScreen(mdiChild.Position).X - mdiChild.Position.X;
+              
+                t.Top = mdiChild.PointToScreen(mdiChild.Position).Y * Utility.GetDpiRatio() - mdiChild.Position.Y;
+                t.Left = mdiChild.PointToScreen(mdiChild.Position).X * Utility.GetDpiRatio() - mdiChild.Position.X;
                 t.Show();
                 mdiChild.WindowChange();
             }
@@ -666,6 +670,9 @@ namespace wpf.control
             if (Buttons != null)
                 Buttons.Children.Clear();
             Container.Children.Remove(this);
+           
         }
+
+
     }
 }

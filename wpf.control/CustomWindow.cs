@@ -214,6 +214,8 @@ namespace wpf.control
                 newTop = 0;
             this.Left = newLeft;
             this.Top = newTop;
+            Console.WriteLine(this.Left + " " + this.Top);
+            Console.WriteLine(this.PointFromScreen(new Point(newLeft, newTop)).X + " " + this.PointFromScreen(new Point(newLeft, newTop)).Y);
         }
 
         private void Thumb_DragStarted(object sender, DragStartedEventArgs e)
@@ -314,9 +316,15 @@ namespace wpf.control
                 mdiChild.Width = this.Width;
                 mdiChild.Height = this.Height;
                 Container.Children.Add(mdiChild);
-                Point p = mdiChild.PointFromScreen(new Point(this.Left, this.Top));
-                Canvas.SetTop(mdiChild, p.Y < 0 ? 0 : p.Y);
-                Canvas.SetLeft(mdiChild, p.X < 0 ? 0 : p.X);
+                Point locationFromScreen = Container.PointToScreen(new Point(0, 0));
+             
+                double container_screen_x = locationFromScreen.X * Utility.GetDpiRatio()  ;
+                double container_screen_y = locationFromScreen.Y * Utility.GetDpiRatio();
+                double diff_x = container_screen_x - Application.Current.MainWindow.Left;
+                double diff_y = container_screen_y - Application.Current.MainWindow.Top;
+                Point p = mdiChild.PointFromScreen(new Point(this.Left, this.Top));  //new Point(this.Left-  container_screen_x- diff_x, this.Top-    container_screen_y- diff_y) ;
+                Canvas.SetTop(mdiChild, p.Y < 0 ? 0 : p.Y );
+                Canvas.SetLeft(mdiChild, p.X < 0 ? 0 : p.X  );
 
                 this.Close(); Container.InvalidateSize();
             }
