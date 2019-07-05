@@ -22,17 +22,18 @@ namespace Wpftest
         public MainWindow()
         {
             InitializeComponent();
- 
+           
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             Container.Children.Add(new MdiChild { Content = new Label { Content = "Normal window" }, Title = "Window " });
+            //     
         }
 
-
-     
-
-
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            Console.WriteLine(this.Left + " " + this.Top);
+        }
     }
 }

@@ -353,8 +353,6 @@ namespace wpf.control
                 newTop = 0;
 
             Position = new Point(newLeft, newTop);
-            Console.WriteLine(newLeft + " " + newTop);
-            Console.WriteLine(this.PointToScreen(new Point( newLeft, newTop)).X+ " " + this.PointToScreen(new Point(newLeft, newTop)).Y);
             Container.InvalidateSize();
         }
 

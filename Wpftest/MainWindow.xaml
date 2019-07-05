@@ -6,25 +6,27 @@
         xmlns:local="clr-namespace:Wpftest"
         mc:Ignorable="d"
         xmlns:mdi="clr-namespace:wpf.control;assembly=wpf.control"
-        Title="MainWindow" Height="450" Width="800" >
+        Title="MainWindow" Height="450" Width="800" Activated="Window_Activated" >
     <Grid>
-        <mdi:MdiContainer Name="Container">
-            <mdi:MdiContainer.Menu>
-                <Menu DockPanel.Dock="Top">
-                    <MenuItem Header="Add">
-                        <MenuItem Header="Normal Window"  Click="MenuItem_Click"  />
-                        <MenuItem Header="Fixed Window"   />
-                        <MenuItem Header="Scroll Window"  />
-                    </MenuItem>
-                    <MenuItem Header="Theme">
-                        <MenuItem Header="Generic" Name="Generic" ToolTip="Generic Visual Studio designer theme" />
-                        <MenuItem Header="Luna" Name="Luna" ToolTip="Blue Windows XP theme"   />
-                        <MenuItem Header="Aero" Name="Aero" ToolTip="Windows Vista/7 theme"   />
-                    </MenuItem>
-                    <MenuItem Header="Windows" x:Name="WindowsMenu" x:FieldModifier="private" />
-                </Menu>
-            </mdi:MdiContainer.Menu>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition  />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_New" Click="MenuItem_Click" />
+                    <MenuItem Header="_Open" />
+                    <MenuItem Header="_Save" />
+                    <Separator />
+                    <MenuItem Header="_Exit" />
+                </MenuItem>
+            </Menu>
            
+        </DockPanel>
+
+        <mdi:MdiContainer Name="Container" Grid.Row="1" >
+          
         </mdi:MdiContainer>
 
     </Grid>
