@@ -12,28 +12,38 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using wpf.control;
-namespace Wpftest
+using Prism.Unity;
+using Prism.Regions;
+using Unity;
+using Prism.Events;
+using Model;
+using QuoteService;
+namespace Wpftest.Views
 {
     /// <summary>
     /// MainWindow.xaml 的互動邏輯
     /// </summary>
     public partial class MainWindow : Window
     {
+ 
         public MainWindow()
         {
             InitializeComponent();
-           
+
+        }
+ 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+        
+     
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             Container.Children.Add(new MdiChild { Content = new Label { Content = "Normal window" }, Title = "Window " });
-            //     
+
         }
 
-        private void Window_Activated(object sender, EventArgs e)
-        {
-            Console.WriteLine(this.Left + " " + this.Top);
-        }
+
     }
 }

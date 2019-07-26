@@ -26,7 +26,7 @@ namespace wpf.control
         public MdiLayout MdiLayout { get { return (MdiLayout)GetValue(MdiLayoutProperty); } set { SetValue(MdiLayoutProperty, value); } }
         public MdiChild ActiveMdiChild { get { return (MdiChild)GetValue(ActiveMdiChildProperty); } internal set { SetValue(ActiveMdiChildProperty, value); } }
         internal Panel Buttons { get { return (Panel)GetValue(ButtonsProperty); } set { SetValue(ButtonsProperty, value); } }
-        internal double InnerHeight { get { return ActualHeight - _topPanel.ActualHeight; } }
+        internal double InnerHeight { get { return ActualHeight; } }
         public ObservableCollection<MdiChild> Children { get; set; }
         private Canvas _windowCanvas;
         private Border _menu;
@@ -43,17 +43,17 @@ namespace wpf.control
 
             Grid gr = new Grid();
           
-           // gr.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gr.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gr.RowDefinitions.Add(new RowDefinition());
 
-         //   _topPanel = new DockPanel { Background = SystemColors.MenuBrush };
-         //   _topPanel.Children.Add(_menu = new Border());
-         //   DockPanel.SetDock(_menu, Dock.Left);
-         ////   _topPanel.Children.Add(_buttons = new Border());
-         //   DockPanel.SetDock(_buttons, Dock.Right);
-           // _topPanel.SizeChanged += MdiContainer_SizeChanged;
-         //   _topPanel.Children.Add(new UIElement());
-          //  gr.Children.Add(_topPanel);
+            _topPanel = new DockPanel { Background = SystemColors.MenuBrush };
+            _topPanel.Children.Add(_menu = new Border());
+            DockPanel.SetDock(_menu, Dock.Left);
+             _topPanel.Children.Add(_buttons = new Border());
+            DockPanel.SetDock(_buttons, Dock.Right);
+            _topPanel.SizeChanged += MdiContainer_SizeChanged;
+            _topPanel.Children.Add(new UIElement());
+            gr.Children.Add(_topPanel);
 
             ScrollViewer sv = new ScrollViewer
             {
@@ -61,9 +61,9 @@ namespace wpf.control
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
                 VerticalScrollBarVisibility = ScrollBarVisibility.Auto
             };
-          //  gr.Children.Add(sv);
-         //   Grid.SetRow(sv, 1);
-            Content = sv;
+             gr.Children.Add(sv);
+            Grid.SetRow(sv, 1);
+           Content = gr;
 
           //  if (Environment.OSVersion.Version.Major > 5)
             //  ThemeValueChanged(this, new DependencyPropertyChangedEventArgs(ThemeProperty, Theme, ThemeType.Aero));

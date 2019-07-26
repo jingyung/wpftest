@@ -4,6 +4,8 @@ using Prism.Unity;
 using System.Windows;
 using Prism.Modularity;
 using Prism.Mvvm;
+using QuoteService;
+using Unity.Lifetime;
 
 namespace BootstrapperShell
 {
@@ -11,7 +13,12 @@ namespace BootstrapperShell
     {
         protected override DependencyObject CreateShell()
         {
-            return Container.Resolve<Wpftest.PrismWindow>();
+            return Container.Resolve<Wpftest.Views.MainWindow>();
+        }
+        protected override void ConfigureContainer()
+        {
+            base.ConfigureContainer();
+      this.Container .RegisterType<QuoteServiceBase, QuoteService.QuoteService>(new ContainerControlledLifetimeManager());
         }
 
         protected override void InitializeShell()
@@ -20,9 +27,11 @@ namespace BootstrapperShell
         }
         protected override void ConfigureModuleCatalog()
         {
-            base.ConfigureModuleCatalog();
+          
             this.ModuleCatalog.AddModule<ModuleA.ModuleAModule>();
+            this.ModuleCatalog.AddModule<FlashOrder.FlashOrderModule>();
             ViewModelLocationProvider.Register<ModuleA.Views.ViewC, ModuleA.ViewModels.ViewCViewMode9l>();
+            this.ModuleCatalog.AddModule<QuoteService.QuoteServiceModule>();
 
 
         }

@@ -53,6 +53,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -74,13 +75,14 @@
       <DependentUpon>PrismWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UnityBootstrapper.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\ViewA.xaml.cs">
       <DependentUpon>ViewA.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewB.xaml.cs">
       <DependentUpon>ViewB.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -88,7 +90,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -130,9 +132,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FlashOrder\FlashOrder.csproj">
+      <Project>{1b1eb843-e541-4eb4-9bff-ce5d42c85dc3}</Project>
+      <Name>FlashOrder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{85f0a136-1290-43a0-86f0-f9d86decbc62}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ModuleA\ModuleA.csproj">
       <Project>{6f459f49-f31d-457b-9f2b-b812631eddda}</Project>
       <Name>ModuleA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuoteService\QuoteService.csproj">
+      <Project>{7574d6d7-8dbd-4086-b8d6-71469c69088c}</Project>
+      <Name>QuoteService</Name>
     </ProjectReference>
     <ProjectReference Include="..\wpf.control\wpf.control.csproj">
       <Project>{3d24fe56-4b0a-40dc-af27-2bea1f814a8a}</Project>
@@ -148,7 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Prism.Unity">
-      <Version>7.1.0.431</Version>
+      <Version>7.2.0.1367</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

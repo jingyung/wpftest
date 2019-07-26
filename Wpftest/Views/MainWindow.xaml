@@ -1,4 +1,4 @@
-﻿<Window x:Class="Wpftest.MainWindow"
+﻿<Window x:Class="Wpftest.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,15 @@
         xmlns:local="clr-namespace:Wpftest"
         mc:Ignorable="d"
         xmlns:mdi="clr-namespace:wpf.control;assembly=wpf.control"
-        Title="MainWindow" Height="450" Width="800" Activated="Window_Activated" >
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+          xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Title="MainWindow" Height="450" Width="800"  >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <prism:InvokeCommandAction Command="{Binding ExecuteLoadDelegateCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
