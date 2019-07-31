@@ -29,9 +29,10 @@ namespace BootstrapperShell
         {
           
             this.ModuleCatalog.AddModule<ModuleA.ModuleAModule>();
-            this.ModuleCatalog.AddModule<FlashOrder.FlashOrderModule>();
+            this.ModuleCatalog.AddModule<Flash.FlashModule>();
+            this.ModuleCatalog.AddModule<FlashOrder.FlashOrderModule >();
             ViewModelLocationProvider.Register<ModuleA.Views.ViewC, ModuleA.ViewModels.ViewCViewMode9l>();
-            this.ModuleCatalog.AddModule<QuoteService.QuoteServiceModule>();
+         // this.ModuleCatalog.AddModule<QuoteService.QuoteServiceModule>();
 
 
         }

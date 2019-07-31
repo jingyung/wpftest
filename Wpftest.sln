@@ -13,7 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuoteService", "QuoteServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{85F0A136-1290-43A0-86F0-F9D86DECBC62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashOrder", "FlashOrder\FlashOrder.csproj", "{1B1EB843-E541-4EB4-9BFF-CE5D42C85DC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flash", "Flash\Flash.csproj", "{1B1EB843-E541-4EB4-9BFF-CE5D42C85DC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashOrder", "FlashOrder\FlashOrder.csproj", "{7AFEF378-E98A-4838-BDD8-215EED113340}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{1B1EB843-E541-4EB4-9BFF-CE5D42C85DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B1EB843-E541-4EB4-9BFF-CE5D42C85DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B1EB843-E541-4EB4-9BFF-CE5D42C85DC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AFEF378-E98A-4838-BDD8-215EED113340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AFEF378-E98A-4838-BDD8-215EED113340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AFEF378-E98A-4838-BDD8-215EED113340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AFEF378-E98A-4838-BDD8-215EED113340}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

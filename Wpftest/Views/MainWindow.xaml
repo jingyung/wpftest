@@ -23,8 +23,14 @@
         <DockPanel Grid.Row="0">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_New" Click="MenuItem_Click" />
-                    <MenuItem Header="_Open" />
+                    <MenuItem Header="_New" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <prism:InvokeCommandAction Command="{Binding ExecuteClickDelegateCommand}" CommandParameter="{ Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                    <MenuItem Header="_Open" Click="MenuItem_Click" />
                     <MenuItem Header="_Save" />
                     <Separator />
                     <MenuItem Header="_Exit" />
@@ -33,7 +39,7 @@
            
         </DockPanel>
 
-        <mdi:MdiContainer Name="Container" Grid.Row="1" >
+        <mdi:MdiContainer Name="MdiContainer" Grid.Row="1" >
           
         </mdi:MdiContainer>
 

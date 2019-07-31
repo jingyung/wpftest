@@ -133,8 +133,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FlashOrder\FlashOrder.csproj">
-      <Project>{1b1eb843-e541-4eb4-9bff-ce5d42c85dc3}</Project>
+      <Project>{7afef378-e98a-4838-bdd8-215eed113340}</Project>
       <Name>FlashOrder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Flash\Flash.csproj">
+      <Project>{1b1eb843-e541-4eb4-9bff-ce5d42c85dc3}</Project>
+      <Name>Flash</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{85f0a136-1290-43a0-86f0-f9d86decbc62}</Project>

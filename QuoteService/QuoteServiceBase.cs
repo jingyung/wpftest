@@ -11,7 +11,7 @@ namespace QuoteService
         public abstract void Connect(string phost, int pPort);
         public abstract void Subscribe(SymbolContract SymbolContract);
         public abstract void UnSubscribe(SymbolContract SymbolContract);
-        public abstract void Query(SymbolContract SymbolContract, string seq);
+        public abstract TickData Query(SymbolContract SymbolContract, string seq);
         public delegate void ConnectedHandler();
         public delegate void DisconnectedHandler();
         public delegate void TickDataTradeHandler(TickDataTrade val);

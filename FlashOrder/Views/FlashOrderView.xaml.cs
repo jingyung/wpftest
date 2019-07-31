@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FlashOrder.ViewModels;
+using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,14 @@ namespace FlashOrder.Views
     /// </summary>
     public partial class FlashOrderView : UserControl
     {
+
         public FlashOrderView()
         {
             InitializeComponent();
+            ((FlashOrderViewModel)this.DataContext).View = this;
+       
         }
+
+
     }
 }

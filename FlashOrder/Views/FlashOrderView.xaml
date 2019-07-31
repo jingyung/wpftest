@@ -3,23 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:FlashOrder"
+             xmlns:local="clr-namespace:FlashOrder.Views"
              mc:Ignorable="d" 
-                 xmlns:prism="http://prismlibrary.com/"
-             prism:ViewModelLocator.AutoWireViewModel="True"
-             d:DesignHeight="450" d:DesignWidth="800">
+                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                xmlns:prism="http://prismlibrary.com/"
+               prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:flash="clr-namespace:Flash.Views;assembly=Flash"
+             d:DesignHeight="450" d:DesignWidth="800" >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <prism:InvokeCommandAction Command="{Binding ExecuteLoadDelegateCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        <DataGrid Name="dg" AutoGenerateColumns="False" ItemsSource="{Binding TickData}">
-            <DataGrid.Columns>
-
-                <DataGridTextColumn Header="Bid" Binding="{Binding Bid}" />
-                <DataGridTextColumn Header="Price" Binding="{Binding Bid}" />
-                <DataGridTextColumn Header="Ask" Binding="{Binding Ask}" />
-
-
-
-            </DataGrid.Columns>
-
-        </DataGrid>
+        <flash:FlashView Name="FlashView" x:FieldModifier="public"    ></flash:FlashView>
     </Grid>
 </UserControl>

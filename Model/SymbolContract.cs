@@ -32,17 +32,18 @@ namespace Model
             else if (CP == "P") cp = CPEnum.Put;
             else cp = CPEnum.Future;
         }
-        public string EXCHANGE
+        public string Key { get => (exchange + Symbol + YearMonth + (CP== CPEnum.Future?"F":(CP == CPEnum.Call ? "C":"P")) + StrikePrice); }
+        public string Exchange
         {
             get => exchange;
             set => exchange = value;
         }
-        public string SYMBOL
+        public string Symbol
         {
             get => symbol;
             set => symbol = value;
         }
-        public string YM
+        public string YearMonth
         {
             get => ym;
             set => ym = value;
@@ -52,7 +53,7 @@ namespace Model
             get => cp;
             set => cp = value;
         }
-        public string STRIKEPRICE
+        public string StrikePrice
         {
             get => strike;
             set => strike = value;

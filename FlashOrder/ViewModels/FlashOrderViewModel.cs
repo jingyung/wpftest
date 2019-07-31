@@ -1,4 +1,5 @@
-﻿using Prism.Events;
+﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
@@ -8,19 +9,41 @@ using System.Text;
 using System.Threading.Tasks;
 using Unity;
 using Model;
+using FlashOrder.Views;
+using Flash.ViewModels;
+
 namespace FlashOrder.ViewModels
 {
     public class FlashOrderViewModel : BindableBase
     {
-        TickDataList _TickData;
-        public TickDataList TickData
+        public FlashOrderView View;
+        IUnityContainer _container;
+        private SymbolContract _symbolContract;
+        public SymbolContract SymbolContract
         {
-            set => SetProperty(ref _TickData, value);
-            get => _TickData;
+
+            get { return _symbolContract; }
+            set
+            {
+                _symbolContract = value;
+  
+            }
         }
-        public FlashOrderViewModel(IRegionManager regionManager, IUnityContainer container, IEventAggregator eventAggregator)
+
+        public DelegateCommand ExecuteLoadDelegateCommand { get; private set; }
+        public FlashOrderViewModel()
         {
-            
+            ExecuteLoadDelegateCommand = new DelegateCommand(ExecuteLoad);
         }
+        public FlashOrderViewModel(IRegionManager regionManager, IUnityContainer container, IEventAggregator eventAggregator) : this()
+        {
+            _container = container;
+
+        }
+        private void ExecuteLoad()
+        {
+            ((FlashViewModel)View.FlashView.DataContext).SymbolContract = _symbolContract;
+        }
+
     }
 }

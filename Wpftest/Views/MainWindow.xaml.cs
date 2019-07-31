@@ -29,7 +29,7 @@ namespace Wpftest.Views
         public MainWindow()
         {
             InitializeComponent();
-
+            ((Wpftest.ViewModels.MainWindowViewModel)this.DataContext).MdiContainer = MdiContainer;
         }
  
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -40,10 +40,10 @@ namespace Wpftest.Views
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Container.Children.Add(new MdiChild { Content = new Label { Content = "Normal window" }, Title = "Window " });
+            this.MdiContainer.MdiLayout = MdiLayout.TileVertical;
 
         }
 
-
+  
     }
 }

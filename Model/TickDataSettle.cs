@@ -17,47 +17,12 @@ namespace Model
         private decimal _DISPLAY_MULTIPLY = 0;//倍率 
         private decimal _CurrStl = 0;//現在結算價
         private decimal _NewStl = 0;
+        public TickDataSettle(string pExchange, string pSymbol, string pYearMonth, string CP, string pStrike)
+        {
+            SymbolContract = new SymbolContract(pExchange, pSymbol, pYearMonth, CP, pStrike);
+        }
+        public SymbolContract SymbolContract;
 
-        /// <summary>
-        /// 交易所
-        /// </summary>
-        public string EXCHAGE
-        {
-            get { return _EXCHAGE; }
-            set { _EXCHAGE = value; }
-        }
-        /// <summary>
-        /// 商品代碼
-        /// </summary>
-        public string SYMBOL
-        {
-            get { return _SYMBOL; }
-            set { _SYMBOL = value; }
-        }
-        /// <summary>
-        /// 年月
-        /// </summary>
-        public string YM
-        {
-            get { return _YM; }
-            set { _YM = value; }
-        }
-        /// <summary>
-        /// CP
-        /// </summary>
-        public string CP
-        {
-            get { return _CP; }
-            set { _CP = value; }
-        }
-        /// <summary>
-        /// 履約價
-        /// </summary>
-        public string STRIKE
-        {
-            get { return _STRIKE; }
-            set { _STRIKE = value; }
-        }
         /// <summary>
         /// 分母
         /// </summary>

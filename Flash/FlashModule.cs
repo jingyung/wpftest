@@ -8,20 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace FlashOrder
+namespace Flash
 {
-    public class FlashOrderModule : IModule
+    public class FlashModule : IModule
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
             var regionManager = containerProvider.Resolve<IRegionManager>();
-            regionManager.RegisterViewWithRegion("FlashOrder", typeof(FlashOrder.Views.FlashOrderView));
-            
+            regionManager.RegisterViewWithRegion("Flash", typeof(Flash.Views.FlashView));
+
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<UserControl, FlashOrder.Views.FlashOrderView>("FlashOrder");
+            containerRegistry.Register<UserControl, Flash.Views.FlashView>("Flash");
         }
     }
 }
