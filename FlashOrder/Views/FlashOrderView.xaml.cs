@@ -1,5 +1,7 @@
 ﻿using FlashOrder.ViewModels;
 using Model;
+using Prism.Events;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity;
 
 namespace FlashOrder.Views
 {
@@ -27,9 +30,8 @@ namespace FlashOrder.Views
         {
             InitializeComponent();
             ((FlashOrderViewModel)this.DataContext).View = this;
-       
-        }
 
+        }
 
     }
 }

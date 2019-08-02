@@ -16,6 +16,9 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <flash:FlashView Name="FlashView" x:FieldModifier="public"    ></flash:FlashView>
+        <!--<flash:FlashView Name="FlashView" x:FieldModifier="public"    ></flash:FlashView>-->
+
+        <ContentControl  prism:RegionManager.RegionName="Flash"  x:FieldModifier="public"  Name="FlashView" ></ContentControl>
+ 
     </Grid>
 </UserControl>

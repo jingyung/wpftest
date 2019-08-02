@@ -15,7 +15,7 @@ namespace Flash
         public void OnInitialized(IContainerProvider containerProvider)
         {
             var regionManager = containerProvider.Resolve<IRegionManager>();
-            regionManager.RegisterViewWithRegion("Flash", typeof(Flash.Views.FlashView));
+          regionManager.RegisterViewWithRegion("Flash", typeof(Flash.Views.FlashView));
 
         }
 

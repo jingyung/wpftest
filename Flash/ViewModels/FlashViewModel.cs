@@ -45,19 +45,16 @@ namespace Flash.ViewModels
             _container = container;
             _quote = _container.Resolve<QuoteServiceBase>();
             _TickData = new QuoteDataList();
-          
+
 
         }
         private void ExecuteLoad()
         {
+            View.dgPrice.Items.SortDescriptions.Add(new SortDescription("Price", ListSortDirection.Descending));
             TickData data = _quote.Query(_symbolContract, "");
             TickData.init(data);
-            //ICollectionView View;
-            //View = CollectionViewSource.GetDefaultView(TickData);
-            //View.SortDescriptions.Add(new SortDescription("Price", ListSortDirection.Descending));
-            //View.Refresh();
-        
-            View.dgPrice.Items.SortDescriptions.Add(new SortDescription("Price", ListSortDirection.Descending));
+            _quote.Subscribe(_symbolContract);
+          
         }
         public void MiddleView()
         {

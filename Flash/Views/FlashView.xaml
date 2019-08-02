@@ -15,7 +15,9 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>
+    <Grid    VirtualizingStackPanel.IsVirtualizing="True"
+                   VirtualizingStackPanel.VirtualizationMode="Recycling"
+                   ScrollViewer.IsDeferredScrollingEnabled="True"  >
         <Grid.RowDefinitions>
          
             <RowDefinition></RowDefinition>

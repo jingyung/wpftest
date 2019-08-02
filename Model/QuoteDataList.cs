@@ -250,14 +250,14 @@ namespace Model
             for (int i = 0; i < 1500; i++)
             {
                 Quote = new QuoteData();
-                Quote.Price = data.Settle + i*2.5M;
+                Quote.Price = data.Settle + i*1M;
                 if (data.LastPrice == Quote.Price)
                 {
                     Quote.MatchFlag = true;
                 }
                 this.AddTick(Quote.Price, Quote);
                 Quote = new QuoteData();
-                Quote.Price = data.Settle - i * 2.5M;
+                Quote.Price = data.Settle - i * 1M;
                 if (data.LastPrice == Quote.Price)
                 {
                     Quote.MatchFlag = true;

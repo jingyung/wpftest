@@ -19,7 +19,7 @@ namespace Wpftest.ViewModels
         public MdiContainer MdiContainer;
         IUnityContainer _container;
         QuoteServiceBase _quote;
-
+        IRegionManager _regionManager;
 
         public DelegateCommand ExecuteLoadDelegateCommand { get; private set; }
         public DelegateCommand<object> ExecuteClickDelegateCommand { get; private set; }
@@ -31,23 +31,25 @@ namespace Wpftest.ViewModels
 
         public MainWindowViewModel(IRegionManager regionManager, IUnityContainer container, IEventAggregator eventAggregator) : this()
         {
+            _regionManager = regionManager;
             _container = container;
             _quote = _container.Resolve<QuoteServiceBase>();
             _quote.Connected += Quote_Connected;
             _quote.Disconnected += Quote_Disconnected;
             _quote.Connect("172.16.204.217", 7113);
-           _quote.TickDataBid += _quote_TickDataBid;
+            _quote.TickDataBid += _quote_TickDataBid;
             _quote.TickDataOffer += _quote_TickDataOffer;
             _quote.TickDataTrade += _quote_TickDataTrade;
             _quote.TickDataHighLow += _quote_TickDataHighLow;
-
-
+            Region r = new Region();
+            r.Name = "test";
+            _regionManager.Regions.Add(r);
         }
 
 
         private void Quote_Connected()
         {
-          _quote.Subscribe(new SymbolContract("SMX", "CN", "201908", CPEnum.Future, ""));
+            _quote.Subscribe(new SymbolContract("HKF", "HSI", "201908", CPEnum.Future, ""));
         }
         private void Quote_Disconnected()
         {
@@ -59,17 +61,12 @@ namespace Wpftest.ViewModels
         }
         private void ExecuteClick(object obj)
         {
-            for (int i = 0; i < 4; i++)
-            {
-                FlashOrder.Views.FlashOrderView view = new FlashOrder.Views.FlashOrderView();
-                //view.SymbolContract = new SymbolContract("HKF", "HSI", "201907", CPEnum.Future, "");
-                ((FlashOrder.ViewModels.FlashOrderViewModel)view.DataContext).SymbolContract = new SymbolContract("SMX", "CN", "201908", CPEnum.Future, "");
-                FlashViewModelCollection.Add(Guid.NewGuid().ToString(), (Flash.ViewModels.FlashViewModel)view.FlashView.DataContext);
-
-
-                MdiContainer.Children.Add(new MdiChild { Content = view });
-            }
-
+            FlashOrder.Views.FlashOrderView view = new FlashOrder.Views.FlashOrderView();
+            ((FlashOrder.ViewModels.FlashOrderViewModel)view.DataContext).SymbolContract = new SymbolContract("HKF", "HSI", "201908", CPEnum.Future, "");
+            _regionManager.Regions["test"].Add(view, "FlashOrder" + _regionManager.Regions["test"].Views.Count().ToString(), true);
+            FlashViewModelCollection.Add(Guid.NewGuid().ToString(), (Flash.ViewModels.FlashViewModel)((Flash.Views.FlashView)view.FlashView.Content).DataContext);
+            MdiContainer.Children.Add(new MdiChild { Content = view });
+ 
         }
 
 
@@ -80,14 +77,14 @@ namespace Wpftest.ViewModels
 
         private void _quote_TickDataTrade(TickDataTrade val)
         {
-            Dictionary<string,Flash.ViewModels.FlashViewModel>.Enumerator e = FlashViewModelCollection.GetEnumerator();
+            Dictionary<string, Flash.ViewModels.FlashViewModel>.Enumerator e = FlashViewModelCollection.GetEnumerator();
             while (e.MoveNext())
             {
-                Flash.ViewModels.FlashViewModel  item = e.Current.Value;
-                item.TickData.UpdateLastTrade(val );
+                Flash.ViewModels.FlashViewModel item = e.Current.Value;
+                item.TickData.UpdateLastTrade(val);
                 item.MiddleView();
             }
-            
+
         }
 
         private void _quote_TickDataOffer(TickDataOffer val)
