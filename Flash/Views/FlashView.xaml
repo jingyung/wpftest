@@ -28,14 +28,14 @@
                    VirtualizingStackPanel.VirtualizationMode="Recycling"
                    ScrollViewer.IsDeferredScrollingEnabled="True"  MouseRightButtonDown="dgPrice_MouseRightButtonDown"  >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="WB" Binding="{Binding BidWorkQty}" Width="*"  />
-                <DataGridTextColumn Header="Bid" Binding="{Binding Bid}" Width="*" Foreground="Red"  />
-                <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="2*"   >
+                <DataGridTextColumn Header="WB" Binding="{Binding BidWorkQty,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Width="*"  />
+                <DataGridTextColumn Header="Bid" Binding="{Binding Bid,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Width="*" Foreground="Red"  />
+                <DataGridTextColumn Header="Price" Binding="{Binding Price,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Width="2*"   >
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="{x:Type DataGridCell}">
                              <!--<Setter Property="Background" Value="{Binding MatchFlag, Converter={StaticResource PriceToColorConverter}}"></Setter>-->
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding MatchFlag}" Value="True">
+                                <DataTrigger Binding="{Binding MatchFlag,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Value="True">
                                     <Setter Property="Foreground" Value="Black"/>
                                     <Setter Property="BorderBrush" Value="Transparent" />
                                     <Setter Property="Background" Value="Yellow" />
@@ -47,8 +47,8 @@
 
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Ask" Binding="{Binding Offer}" Width="*"  Foreground="Green"   />
-                <DataGridTextColumn Header="WB" Binding="{Binding OfferWorkQty}" Width="*"   />
+                <DataGridTextColumn Header="Ask" Binding="{Binding Offer,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Width="*"  Foreground="Green"   />
+                <DataGridTextColumn Header="WB" Binding="{Binding OfferWorkQty,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Width="*"   />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

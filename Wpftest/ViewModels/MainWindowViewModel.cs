@@ -49,7 +49,7 @@ namespace Wpftest.ViewModels
 
         private void Quote_Connected()
         {
-            _quote.Subscribe(new SymbolContract("HKF", "HSI", "201908", CPEnum.Future, ""));
+            _quote.Subscribe(new SymbolContract("HKF", "HSI", "201910", CPEnum.Future, ""));
         }
         private void Quote_Disconnected()
         {
@@ -62,7 +62,7 @@ namespace Wpftest.ViewModels
         private void ExecuteClick(object obj)
         {
             FlashOrder.Views.FlashOrderView view = new FlashOrder.Views.FlashOrderView();
-            ((FlashOrder.ViewModels.FlashOrderViewModel)view.DataContext).SymbolContract = new SymbolContract("HKF", "HSI", "201908", CPEnum.Future, "");
+            ((FlashOrder.ViewModels.FlashOrderViewModel)view.DataContext).SymbolContract = new SymbolContract("HKF", "HSI", "201910", CPEnum.Future, "");
             _regionManager.Regions["test"].Add(view, "FlashOrder" + _regionManager.Regions["test"].Views.Count().ToString(), true);
             FlashViewModelCollection.Add(Guid.NewGuid().ToString(), (Flash.ViewModels.FlashViewModel)((Flash.Views.FlashView)view.FlashView.Content).DataContext);
             MdiContainer.Children.Add(new MdiChild { Content = view });
@@ -82,7 +82,7 @@ namespace Wpftest.ViewModels
             {
                 Flash.ViewModels.FlashViewModel item = e.Current.Value;
                 item.TickData.UpdateLastTrade(val);
-                item.MiddleView();
+             //   item.MiddleView();
             }
 
         }

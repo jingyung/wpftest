@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Model;
-
+using System.Windows;
 namespace QuoteService
 {
     public class QuoteService : QuoteServiceBase
     {
         TickData _TickData;
 
-        private readonly SynchronizationContext syncContext= SynchronizationContext.Current;
+        private readonly SynchronizationContext syncContext = SynchronizationContext.Current;
         Dictionary<string, TickDataTrade> _TickDataTrade = new Dictionary<string, TickDataTrade>();
         Dictionary<string, TickDataBid> _TickDataBid = new Dictionary<string, TickDataBid>();
         Dictionary<string, TickDataOffer> _TickDataOffer = new Dictionary<string, TickDataOffer>();
@@ -25,7 +25,6 @@ namespace QuoteService
         public QuoteService()
         {
 
-
             _api = new SQuotaAPI.SQuotaAPI();
             _api.Connected += _api_Connected;
             _api.Disconnected += _api_Disconnected;
@@ -35,8 +34,9 @@ namespace QuoteService
             {
                 while (true)
                 {
+
                     syncContext.Post(new SendOrPostCallback(ExcuteFDisplay), null);
-                    Thread.Sleep(30);
+                    Thread.Sleep(10);
                 }
             }, TaskCreationOptions.LongRunning);
         }

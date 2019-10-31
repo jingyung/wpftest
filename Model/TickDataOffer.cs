@@ -218,5 +218,23 @@ namespace Model
             get { return _OfferDOM10Volume; }
             set { _OfferDOM10Volume = value; }
         }
+
+        public string ToString()
+        {
+
+            return " Offer" + OfferDOM1Price.ToString() + " "
++ OfferDOM2Price.ToString() + " "
++ OfferDOM3Price.ToString() + " "
++ OfferDOM4Price.ToString() + " "
++ OfferDOM5Price.ToString() + " "
++ OfferDOM6Price.ToString() + " "
++ OfferDOM7Price.ToString() + " "
++ OfferDOM8Price.ToString() + " "
++ OfferDOM9Price.ToString() + " "
++ OfferDOM10Price.ToString() + " ";
+
+
+
+        }
     }
 }

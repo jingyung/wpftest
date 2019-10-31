@@ -41,7 +41,7 @@ namespace Model
             SymbolContract = new SymbolContract(pExchange, pSymbol, pYearMonth, CP, pStrike);
         }
         public SymbolContract SymbolContract;
-       
+
         /// <summary>
         /// 分母
         /// </summary>
@@ -218,6 +218,23 @@ namespace Model
         {
             get { return _BidDOM10Volume; }
             set { _BidDOM10Volume = value; }
+        }
+        public string ToString()
+        {
+       
+                return " bid"+BidDOM1Price.ToString() + " "
+  + BidDOM2Price.ToString() + " "
+  + BidDOM3Price.ToString() + " "
+  + BidDOM4Price.ToString() + " "
+  + BidDOM5Price.ToString() + " "
+  + BidDOM6Price.ToString() + " "
+  + BidDOM7Price.ToString() + " "
+  + BidDOM8Price.ToString() + " "
+  + BidDOM9Price.ToString() + " "
+  + BidDOM10Price.ToString() + " ";
+
+          
+
         }
 
     }
