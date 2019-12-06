@@ -274,7 +274,7 @@
                             <Border Name="DarkenBackground" Height="28" VerticalAlignment="Top" CornerRadius="5,5,0,0" Background="{StaticResource DarkenBackgroundBrush}" />
                             <Border Name="HighlightBackground" Height="134" VerticalAlignment="Top" CornerRadius="5,5,0,0" Background="{StaticResource HighlightBackgroundBrush}" />
 
-                            <Thumb Name="DragThumb" Height="30" VerticalAlignment="Top" Opacity="0" />
+                            <Thumb Name="DragThumb" Height="30" VerticalAlignment="Top" Opacity="0" Background="Black" />
 
                             <StackPanel Name="ButtonsPanel" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,9,8,0" VerticalAlignment="Top" >
                                 <Button Name="WindowOutSideBoxButton" Width="31" Height="17"  Margin="0,0,2,0"    >

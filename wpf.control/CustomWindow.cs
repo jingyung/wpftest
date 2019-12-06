@@ -11,28 +11,17 @@ namespace wpf.control
 {
     public class CustomWindow : Window
     {
-        public static readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(UIElement), typeof(CustomWindow));
-        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(CustomWindow));
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(ImageSource), typeof(CustomWindow));
         public static readonly DependencyProperty ShowIconProperty = DependencyProperty.Register("ShowIcon", typeof(bool), typeof(CustomWindow), new UIPropertyMetadata(true));
         public static readonly DependencyProperty ResizableProperty = DependencyProperty.Register("Resizable", typeof(bool), typeof(CustomWindow), new UIPropertyMetadata(true));
         public static readonly DependencyProperty FocusedProperty = DependencyProperty.Register("Focused", typeof(bool), typeof(CustomWindow), new UIPropertyMetadata(false, new PropertyChangedCallback(FocusedValueChanged)));
         public static readonly DependencyProperty WindowOutSideBoxProperty = DependencyProperty.Register("WindowOutSideBox", typeof(bool), typeof(CustomWindow), new UIPropertyMetadata(false, new PropertyChangedCallback(WindowOutSideBoxValueChanged)));
-
         public bool WindowOutSideBox { get { return (bool)GetValue(WindowOutSideBoxProperty); } set { SetValue(WindowOutSideBoxProperty, value); } }
-
         public bool Resizable { get { return (bool)GetValue(ResizableProperty); } set { SetValue(ResizableProperty, value); } }
-        public UIElement Content { get { return (UIElement)GetValue(ContentProperty); } set { SetValue(ContentProperty, value); } }
-        public string Title { get { return (string)GetValue(TitleProperty); } set { SetValue(TitleProperty, value); } }
-        public ImageSource Icon { get { return (ImageSource)GetValue(IconProperty); } set { SetValue(IconProperty, value); } }
         public bool Focused { get { return (bool)GetValue(FocusedProperty); } set { SetValue(FocusedProperty, value); } }
         private Button WindowOutSideButton;
         private Button minimizeButton;
-
         private Button maximizeButton;
-
         private Button closeButton;
-
         WindowState NonMaximizedState { get; set; }
         private StackPanel buttonsPanel;
         public MdiContainer Container { get; set; }
@@ -71,9 +60,7 @@ namespace wpf.control
 
             if (closeButton != null)
                 closeButton.Click += CloseButton_Click;
-
             Thumb dragThumb = (Thumb)Template.FindName("DragThumb", this);
-
             if (dragThumb != null)
             {
                 dragThumb.DragStarted += Thumb_DragStarted;
@@ -87,7 +74,6 @@ namespace wpf.control
                         maximizeButton_Click(null, null);
                 };
             }
-
             Thumb resizeLeft = (Thumb)Template.FindName("ResizeLeft", this);
             Thumb resizeTopLeft = (Thumb)Template.FindName("ResizeTopLeft", this);
             Thumb resizeTop = (Thumb)Template.FindName("ResizeTop", this);
@@ -101,25 +87,21 @@ namespace wpf.control
                 resizeLeft.DragStarted += (sendor, e) => { Thumb_DragStarted(sendor, e); };
                 resizeLeft.DragDelta += ResizeLeft_DragDelta;
             }
-
             if (resizeTop != null)
             {
                 resizeTop.DragStarted += Thumb_DragStarted;
                 resizeTop.DragDelta += ResizeTop_DragDelta;
             }
-
             if (resizeRight != null)
             {
                 resizeRight.DragStarted += Thumb_DragStarted;
                 resizeRight.DragDelta += ResizeRight_DragDelta;
             }
-
             if (resizeBottom != null)
             {
                 resizeBottom.DragStarted += Thumb_DragStarted;
                 resizeBottom.DragDelta += ResizeBottom_DragDelta;
             }
-
             if (resizeTopLeft != null)
             {
                 resizeTopLeft.DragStarted += Thumb_DragStarted;
@@ -131,7 +113,6 @@ namespace wpf.control
 
                 };
             }
-
             if (resizeTopRight != null)
             {
                 resizeTopRight.DragStarted += Thumb_DragStarted;
@@ -142,7 +123,6 @@ namespace wpf.control
                     ResizeRight_DragDelta(null, e);
                 };
             }
-
             if (resizeBottomRight != null)
             {
                 resizeBottomRight.DragStarted += Thumb_DragStarted;
@@ -153,7 +133,6 @@ namespace wpf.control
                     ResizeRight_DragDelta(null, e);
                 };
             }
-
             if (resizeBottomLeft != null)
             {
                 resizeBottomLeft.DragStarted += Thumb_DragStarted;
@@ -165,7 +144,6 @@ namespace wpf.control
                 };
             }
         }
-
         private void ResizeLeft_DragDelta(object sender, DragDeltaEventArgs e)
         {
             if (Width - e.HorizontalChange < MinWidth)
@@ -177,7 +155,6 @@ namespace wpf.control
                 newLeft = 0 - this.Left;
             Width -= newLeft;
             this.Left += newLeft;
-
         }
         private void ResizeTop_DragDelta(object sender, DragDeltaEventArgs e)
         {
@@ -307,27 +284,22 @@ namespace wpf.control
         {
             if (!WindowOutSideBox)
             {
-                MdiChild mdiChild = new MdiChild();
-                mdiChild.Content = this.Content;
+                MdiChild mdiChild = new MdiChild(Container);
+                mdiChild.Content = (UIElement)this.Content;
                 mdiChild.Container = this.Container;
                 mdiChild.Title = this.Title;
                 mdiChild.WindowOutSideBox = false;
                 mdiChild.Width = this.Width;
                 mdiChild.Height = this.Height;
                 Container.Children.Add(mdiChild);
-
                 Point locationFromScreen = Container.PointToScreen(new Point(0, 0));
                 double container_screen_x = locationFromScreen.X * Utility.GetDpiRatio();
                 double container_screen_y = locationFromScreen.Y * Utility.GetDpiRatio();
                 double diff_x =  this.Left- container_screen_x;
                 double diff_y =     this.Top - container_screen_y;
                 Point p = new Point(  diff_x,   diff_y);
-
-
                 Canvas.SetTop(mdiChild, p.Y < 0 ? 0 : p.Y);
-
                 Canvas.SetLeft(mdiChild, p.X < 0 ? 0 : p.X);
-
                 this.Close(); Container.InvalidateSize();
             }
             else

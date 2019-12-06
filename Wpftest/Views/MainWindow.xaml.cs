@@ -38,8 +38,7 @@ namespace Wpftest.Views
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
+        { 
             this.MdiContainer.MdiLayout = MdiLayout.TileVertical;
 
         }

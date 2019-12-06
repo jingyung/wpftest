@@ -42,14 +42,14 @@ namespace wpf.control
             Children.CollectionChanged += Children_CollectionChanged;
 
             Grid gr = new Grid();
-          
+
             gr.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             gr.RowDefinitions.Add(new RowDefinition());
 
             _topPanel = new DockPanel { Background = SystemColors.MenuBrush };
             _topPanel.Children.Add(_menu = new Border());
             DockPanel.SetDock(_menu, Dock.Left);
-             _topPanel.Children.Add(_buttons = new Border());
+            _topPanel.Children.Add(_buttons = new Border());
             DockPanel.SetDock(_buttons, Dock.Right);
             _topPanel.SizeChanged += MdiContainer_SizeChanged;
             _topPanel.Children.Add(new UIElement());
@@ -61,11 +61,11 @@ namespace wpf.control
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
                 VerticalScrollBarVisibility = ScrollBarVisibility.Auto
             };
-             gr.Children.Add(sv);
+            gr.Children.Add(sv);
             Grid.SetRow(sv, 1);
-           Content = gr;
+            Content = gr;
 
-          //  if (Environment.OSVersion.Version.Major > 5)
+            //  if (Environment.OSVersion.Version.Major > 5)
             //  ThemeValueChanged(this, new DependencyPropertyChangedEventArgs(ThemeProperty, Theme, ThemeType.Aero));
             // else
             //   ThemeValueChanged(this, new DependencyPropertyChangedEventArgs(ThemeProperty, Theme, ThemeType.Luna));
@@ -257,7 +257,7 @@ namespace wpf.control
             MdiContainer mdiContainer = (MdiContainer)sender;
             UIElement menu = (UIElement)e.NewValue;
 
-          //  mdiContainer._menu.Child = menu;
+            //  mdiContainer._menu.Child = menu;
         }
         private static void MdiLayoutValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
@@ -463,5 +463,11 @@ namespace wpf.control
             #endregion
         }
         public event RoutedEventHandler MdiChildTitleChanged;
+
+        public void AddMDIChild(UIElement pContent)
+        {
+            this.Children.Add(new MdiChild(this) { Content = pContent });
+        }
+
     }
 }

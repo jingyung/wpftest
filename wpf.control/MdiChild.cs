@@ -16,7 +16,7 @@ namespace wpf.control
         internal const int MinimizedWidth = 160;
         internal const int MinimizedHeight = 29;
         public static readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(UIElement), typeof(MdiChild));
-        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(MdiChild));
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(MdiChild), new UIPropertyMetadata(""));
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(ImageSource), typeof(MdiChild));
         public static readonly DependencyProperty ShowIconProperty = DependencyProperty.Register("ShowIcon", typeof(bool), typeof(MdiChild), new UIPropertyMetadata(true));
         public static readonly DependencyProperty ResizableProperty = DependencyProperty.Register("Resizable", typeof(bool), typeof(MdiChild), new UIPropertyMetadata(true));
@@ -80,14 +80,25 @@ namespace wpf.control
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MdiChild), new FrameworkPropertyMetadata(typeof(MdiChild)));
         }
-        public MdiChild()
+        public MdiChild(MdiContainer pContainer)
         {
             Focusable = IsTabStop = false;
             Loaded += MdiChild_Loaded;
             GotFocus += MdiChild_GotFocus;
             KeyDown += MdiChild_KeyDown;
+            Container = pContainer;
         }
+        private void MdiChild_Loaded(object sender, RoutedEventArgs e)
+        {
+            FrameworkElement currentControl = this;
 
+            while (currentControl != null && currentControl.GetType() != typeof(MdiContainer))
+                currentControl = (FrameworkElement)currentControl.Parent;
+
+            if (currentControl != null)
+                Container = (MdiContainer)currentControl;
+            //else throw new Exception("Unable to find MdiContainer parent.");
+        }
         static void MdiChild_KeyDown(object sender, KeyEventArgs e)
         {
             MdiChild mdiChild = (MdiChild)sender;
@@ -102,17 +113,7 @@ namespace wpf.control
                     break;
             }
         }
-        private void MdiChild_Loaded(object sender, RoutedEventArgs e)
-        {
-            FrameworkElement currentControl = this;
 
-            while (currentControl != null && currentControl.GetType() != typeof(MdiContainer))
-                currentControl = (FrameworkElement)currentControl.Parent;
-
-            if (currentControl != null)
-                Container = (MdiContainer)currentControl;
-            //else throw new Exception("Unable to find MdiContainer parent.");
-        }
         private void MdiChild_GotFocus(object sender, RoutedEventArgs e)
         {
             Focus();
@@ -510,12 +511,6 @@ namespace wpf.control
                     sv.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
                     sv.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
                 }
-                mdiChild.Buttons.Children.Clear();
-                mdiChild.Buttons = null;
-                mdiChild.buttonsPanel.Children.Add(mdiChild.WindowOutSideButton);
-                mdiChild.buttonsPanel.Children.Add(mdiChild.minimizeButton);
-                mdiChild.buttonsPanel.Children.Add(mdiChild.maximizeButton);
-                mdiChild.buttonsPanel.Children.Add(mdiChild.closeButton);
             }
             if (previousWindowState == WindowState.Minimized)
                 mdiChild.minimizedPosition = mdiChild.Position;
@@ -598,38 +593,25 @@ namespace wpf.control
                             mdiChild.originalDimension = new Rect(mdiChild.Position.X, mdiChild.Position.Y, mdiChild.ActualWidth, mdiChild.ActualHeight);
                         mdiChild.NonMaximizedState = previousWindowState;
 
-                        mdiChild.buttonsPanel.Children.Clear();
-                        StackPanel sp = new StackPanel { Orientation = Orientation.Horizontal };
-
-                        sp.Children.Add(mdiChild.minimizeButton);
-                        sp.Children.Add(mdiChild.maximizeButton);
-                        sp.Children.Add(mdiChild.closeButton);
-                        mdiChild.Buttons = sp;
-
                         mdiChild.Position = new Point(0, 0);
                         mdiChild.Width = mdiContainer.ActualWidth;
                         mdiChild.Height = mdiContainer.InnerHeight - 2; // ContentBorder.BorderThickness="1" in template
 
-                        //   ScrollViewer sv = (ScrollViewer)( mdiContainer.Content) ;
-                        ScrollViewer sv = (ScrollViewer)((Grid)mdiContainer.Content).Children[1];
-                        sv.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
-                        sv.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
                     }
                     break;
             }
-            if (mdiContainer.ActiveMdiChild == mdiChild)
-                mdiContainer.Buttons = mdiChild.Buttons;
+
             mdiContainer.InvalidateSize();
         }
 
         private static void WindowOutSideBoxValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-          
+
             MdiChild mdiChild = (MdiChild)sender;
             bool open = (bool)e.NewValue;
             if (open)
             {
-               
+
                 CustomWindow t = new CustomWindow();
                 t.Title = mdiChild.Title;
                 t.Container = mdiChild.Container;
@@ -637,7 +619,7 @@ namespace wpf.control
                 t.WindowOutSideBox = true;
                 t.Width = mdiChild.Width;
                 t.Height = mdiChild.Height;
-              
+
                 t.Top = mdiChild.PointToScreen(mdiChild.Position).Y * Utility.GetDpiRatio() - mdiChild.Position.Y;
                 t.Left = mdiChild.PointToScreen(mdiChild.Position).X * Utility.GetDpiRatio() - mdiChild.Position.X;
                 t.Show();
@@ -669,7 +651,7 @@ namespace wpf.control
             if (Buttons != null)
                 Buttons.Children.Clear();
             Container.Children.Remove(this);
-           
+
         }
 
 
