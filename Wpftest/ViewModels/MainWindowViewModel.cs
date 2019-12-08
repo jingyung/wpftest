@@ -34,13 +34,13 @@ namespace Wpftest.ViewModels
             _regionManager = regionManager;
             _container = container;
             _quote = _container.Resolve<QuoteServiceBase>();
-            _quote.Connected += Quote_Connected;
-            _quote.Disconnected += Quote_Disconnected;
-            _quote.Connect("172.16.204.217", 7113);
-            _quote.TickDataBid += _quote_TickDataBid;
-            _quote.TickDataOffer += _quote_TickDataOffer;
-            _quote.TickDataTrade += _quote_TickDataTrade;
-            _quote.TickDataHighLow += _quote_TickDataHighLow;
+            //_quote.Connected += Quote_Connected;
+            //_quote.Disconnected += Quote_Disconnected;
+            //_quote.Connect("172.16.204.217", 7113);
+            //_quote.TickDataBid += _quote_TickDataBid;
+            //_quote.TickDataOffer += _quote_TickDataOffer;
+            //_quote.TickDataTrade += _quote_TickDataTrade;
+            //_quote.TickDataHighLow += _quote_TickDataHighLow;
             Region r = new Region();
             r.Name = "test";
             _regionManager.Regions.Add(r);
@@ -49,7 +49,7 @@ namespace Wpftest.ViewModels
 
         private void Quote_Connected()
         {
-            _quote.Subscribe(new SymbolContract("HKF", "HSI", "201912", CPEnum.Future, ""));
+         //   _quote.Subscribe(new SymbolContract("HKF", "HSI", "201912", CPEnum.Future, ""));
         }
         private void Quote_Disconnected()
         {

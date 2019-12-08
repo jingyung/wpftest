@@ -50,10 +50,10 @@ namespace Flash.ViewModels
         }
         private void ExecuteLoad()
         {
-            View.dgPrice.Items.SortDescriptions.Add(new SortDescription("Price", ListSortDirection.Descending));
-            TickData data = _quote.Query(_symbolContract, "");
-            TickData.init(data);
-            _quote.Subscribe(_symbolContract);
+            //View.dgPrice.Items.SortDescriptions.Add(new SortDescription("Price", ListSortDirection.Descending));
+            //TickData data = _quote.Query(_symbolContract, "");
+            //TickData.init(data);
+            //_quote.Subscribe(_symbolContract);
           
         }
         public void MiddleView()

@@ -155,6 +155,8 @@ namespace wpf.control
                         minimizeButton_Click(null, null);
                     else if (WindowState == WindowState.Normal)
                         maximizeButton_Click(null, null);
+                    else if (WindowState == WindowState.Maximized)
+                        maximizeButton_Click(null, null);
                 };
             }
 
