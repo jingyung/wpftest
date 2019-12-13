@@ -343,7 +343,7 @@ namespace Model
             Quote.MatchFlag = true;
             _tmpTrade = Quote;
             this.AddTick(Quote.Price, Quote);
-            for (int i = 1; i < 500; i++)
+            for (int i = 1; i < 1500; i++)
             {
                 Quote = new QuoteData();
                 Quote.Price = data.Settle + i * 1M;

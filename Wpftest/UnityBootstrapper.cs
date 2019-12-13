@@ -6,6 +6,9 @@ using Prism.Modularity;
 using Prism.Mvvm;
 using QuoteService;
 using Unity.Lifetime;
+using Prism.Regions;
+using wpf.control;
+using CommonServiceLocator;
 
 namespace BootstrapperShell
 {
@@ -13,28 +16,36 @@ namespace BootstrapperShell
     {
         protected override DependencyObject CreateShell()
         {
-            return Container.Resolve<Wpftest.Views.MainWindow>();
+          return ServiceLocator.Current.GetInstance<Wpftest.Views.MainWindow>();
+            //return Container.Resolve<Wpftest.Views.MainWindow>();
         }
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-      this.Container .RegisterType<QuoteServiceBase, QuoteService.QuoteService>(new ContainerControlledLifetimeManager());
+           
+
         }
 
         protected override void InitializeShell()
         {
+            this.Container.RegisterType<QuoteServiceBase, QuoteService.QuoteService>(new ContainerControlledLifetimeManager());
             Application.Current.MainWindow.Show();
         }
         protected override void ConfigureModuleCatalog()
         {
-          
+
             this.ModuleCatalog.AddModule<ModuleA.ModuleAModule>();
-            this.ModuleCatalog.AddModule<Flash.FlashModule>();
-            this.ModuleCatalog.AddModule<FlashOrder.FlashOrderModule >();
+             this.ModuleCatalog.AddModule<Flash.FlashModule>();
+             this.ModuleCatalog.AddModule<FlashOrder.FlashOrderModule>();
             ViewModelLocationProvider.Register<ModuleA.Views.ViewC, ModuleA.ViewModels.ViewCViewMode9l>();
-         // this.ModuleCatalog.AddModule<QuoteService.QuoteServiceModule>();
-
-
+          
         }
+        protected override RegionAdapterMappings ConfigureRegionAdapterMappings()
+        {
+            var map = base.ConfigureRegionAdapterMappings();
+            map.RegisterMapping(typeof(MdiContainer), Container.Resolve<MdiRegionAdapter>());
+            return map;
+        }
+
     }
 }

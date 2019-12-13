@@ -33,14 +33,7 @@ namespace Wpftest.ViewModels
         {
             _regionManager = regionManager;
             _container = container;
-            _quote = _container.Resolve<QuoteServiceBase>();
-            //_quote.Connected += Quote_Connected;
-            //_quote.Disconnected += Quote_Disconnected;
-            //_quote.Connect("172.16.204.217", 7113);
-            //_quote.TickDataBid += _quote_TickDataBid;
-            //_quote.TickDataOffer += _quote_TickDataOffer;
-            //_quote.TickDataTrade += _quote_TickDataTrade;
-            //_quote.TickDataHighLow += _quote_TickDataHighLow;
+     
             Region r = new Region();
             r.Name = "test";
             _regionManager.Regions.Add(r);
@@ -49,7 +42,7 @@ namespace Wpftest.ViewModels
 
         private void Quote_Connected()
         {
-         //   _quote.Subscribe(new SymbolContract("HKF", "HSI", "201912", CPEnum.Future, ""));
+           //_quote.Subscribe(new SymbolContract("HKF", "HSI", "201912", CPEnum.Future, ""));
         }
         private void Quote_Disconnected()
         {
@@ -57,14 +50,23 @@ namespace Wpftest.ViewModels
         }
         private void ExecuteLoad()
         {
+            _quote = _container.Resolve<QuoteServiceBase>();
 
+            _quote.Connected += Quote_Connected;
+            _quote.Disconnected += Quote_Disconnected;
+            _quote.Connect("172.16.204.217", 7113);
+            _quote.TickDataBid += _quote_TickDataBid;
+            _quote.TickDataOffer += _quote_TickDataOffer;
+            _quote.TickDataTrade += _quote_TickDataTrade;
+            _quote.TickDataHighLow += _quote_TickDataHighLow;
         }
         private void ExecuteClick(object obj)
         {
+        
             FlashOrder.Views.FlashOrderView view = new FlashOrder.Views.FlashOrderView();
             ((FlashOrder.ViewModels.FlashOrderViewModel)view.DataContext).SymbolContract = new SymbolContract("HKF", "HSI", "201912", CPEnum.Future, "");
-            _regionManager.Regions["test"].Add(view, "FlashOrder" + _regionManager.Regions["test"].Views.Count().ToString(), true);
-            FlashViewModelCollection.Add(Guid.NewGuid().ToString(), (Flash.ViewModels.FlashViewModel)((Flash.Views.FlashView)view.FlashView.Content).DataContext);
+           // _regionManager.Regions["test"].Add(view, "FlashOrder" + _regionManager.Regions["test"].Views.Count().ToString(), false);
+            FlashViewModelCollection.Add(Guid.NewGuid().ToString(), (Flash.ViewModels.FlashViewModel)view.FlashView.DataContext);
             MdiContainer.AddMDIChild(view);
 
         }

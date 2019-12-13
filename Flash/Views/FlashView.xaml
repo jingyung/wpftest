@@ -17,23 +17,23 @@
 
     <Grid    VirtualizingStackPanel.IsVirtualizing="True"
                    VirtualizingStackPanel.VirtualizationMode="Recycling"
-                   ScrollViewer.IsDeferredScrollingEnabled="True"  >
+                   ScrollViewer.IsDeferredScrollingEnabled="True" >
         <Grid.RowDefinitions>
-         
+
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+
         <!--<Button Grid.Row="0" Click="Button_Click"> test </Button>-->
-        <DataGrid Grid.Row="1" Name="dgPrice" AutoGenerateColumns="False" ItemsSource="{Binding TickData}"        EnableRowVirtualization="True"
+        <DataGrid Grid.Row="1" Name="dgPrice" AutoGenerateColumns="False" ItemsSource="{Binding TickData}"        EnableRowVirtualization="True"  
    EnableColumnVirtualization="True"  VirtualizingStackPanel.IsVirtualizing="True"
                    VirtualizingStackPanel.VirtualizationMode="Recycling"
-                   ScrollViewer.IsDeferredScrollingEnabled="True"  MouseRightButtonDown="dgPrice_MouseRightButtonDown"  >
+                   ScrollViewer.IsDeferredScrollingEnabled="True"  MouseRightButtonDown="dgPrice_MouseRightButtonDown"     >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="WB" Binding="{Binding BidWorkQty,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Width="*"  />
+                <DataGridTextColumn Header="WB" Binding="{Binding BidWorkQty ,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Width="*"  />
                 <DataGridTextColumn Header="Bid" Binding="{Binding Bid,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Width="*" Foreground="Red"  />
                 <DataGridTextColumn Header="Price" Binding="{Binding Price,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Width="2*"   >
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="{x:Type DataGridCell}">
-                             <!--<Setter Property="Background" Value="{Binding MatchFlag, Converter={StaticResource PriceToColorConverter}}"></Setter>-->
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding MatchFlag,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Value="True">
                                     <Setter Property="Foreground" Value="Black"/>
@@ -44,7 +44,6 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Ask" Binding="{Binding Offer,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Width="*"  Foreground="Green"   />

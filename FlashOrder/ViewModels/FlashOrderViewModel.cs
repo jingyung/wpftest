@@ -43,7 +43,7 @@ namespace FlashOrder.ViewModels
         private void ExecuteLoad()
         {
             //   ((FlashViewModel)View.FlashView.DataContext).SymbolContract = _symbolContract;
-            ((FlashViewModel)((Flash.Views.FlashView)View.FlashView.Content).DataContext).SymbolContract = _symbolContract;
+            ((FlashViewModel)(View.FlashView).DataContext).SymbolContract = _symbolContract;
         }
 
     }

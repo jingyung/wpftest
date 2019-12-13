@@ -26,7 +26,7 @@ namespace QuoteService
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-           
+        
         }
     }
 }

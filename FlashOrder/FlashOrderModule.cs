@@ -14,8 +14,8 @@ namespace FlashOrder
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            var regionManager = containerProvider.Resolve<IRegionManager>();
-            regionManager.RegisterViewWithRegion("FlashOrder", typeof(FlashOrder.Views.FlashOrderView));
+            //var regionManager = containerProvider.Resolve<IRegionManager>();
+            //regionManager.RegisterViewWithRegion("FlashOrder", typeof(FlashOrder.Views.FlashOrderView));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
