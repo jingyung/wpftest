@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITickUpdate.cs" />
     <Compile Include="SymbolContract.cs" />
     <Compile Include="CPEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

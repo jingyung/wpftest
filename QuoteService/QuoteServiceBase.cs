@@ -9,8 +9,8 @@ namespace QuoteService
     public abstract class QuoteServiceBase
     {
         public abstract void Connect(string phost, int pPort);
-        public abstract void Subscribe(SymbolContract SymbolContract);
-        public abstract void UnSubscribe(SymbolContract SymbolContract);
+        public abstract void Subscribe(SymbolContract SymbolContract, ITickUpdate IView);
+        public abstract void UnSubscribe(SymbolContract SymbolContract, ITickUpdate IView);
         public abstract TickData Query(SymbolContract SymbolContract, string seq);
         public delegate void ConnectedHandler();
         public delegate void DisconnectedHandler();

@@ -54,61 +54,18 @@ namespace Wpftest.ViewModels
 
             _quote.Connected += Quote_Connected;
             _quote.Disconnected += Quote_Disconnected;
-            _quote.Connect("172.16.204.217", 7113);
-            _quote.TickDataBid += _quote_TickDataBid;
-            _quote.TickDataOffer += _quote_TickDataOffer;
-            _quote.TickDataTrade += _quote_TickDataTrade;
-            _quote.TickDataHighLow += _quote_TickDataHighLow;
+            _quote.Connect("122.147.227.116", 7113);
+          
         }
         private void ExecuteClick(object obj)
         {
         
             FlashOrder.Views.FlashOrderView view = new FlashOrder.Views.FlashOrderView();
-            ((FlashOrder.ViewModels.FlashOrderViewModel)view.DataContext).SymbolContract = new SymbolContract("HKF", "HSI", "201912", CPEnum.Future, "");
+            ((FlashOrder.ViewModels.FlashOrderViewModel)view.DataContext).SymbolContract = new SymbolContract("CBT", "YM", "201912", CPEnum.Future, "");
            // _regionManager.Regions["test"].Add(view, "FlashOrder" + _regionManager.Regions["test"].Views.Count().ToString(), false);
             FlashViewModelCollection.Add(Guid.NewGuid().ToString(), (Flash.ViewModels.FlashViewModel)view.FlashView.DataContext);
             MdiContainer.AddMDIChild(view);
 
         }
-
-
-        private void _quote_TickDataHighLow(TickDataHighLow val)
-        {
-
-        }
-
-        private void _quote_TickDataTrade(TickDataTrade val)
-        {
-            Dictionary<string, Flash.ViewModels.FlashViewModel>.Enumerator e = FlashViewModelCollection.GetEnumerator();
-            while (e.MoveNext())
-            {
-                Flash.ViewModels.FlashViewModel item = e.Current.Value;
-                item.TickData.UpdateLastTrade(val);
-                 item.MiddleView();
-            }
-
-        }
-
-        private void _quote_TickDataOffer(TickDataOffer val)
-        {
-            Dictionary<string, Flash.ViewModels.FlashViewModel>.Enumerator e = FlashViewModelCollection.GetEnumerator();
-            while (e.MoveNext())
-            {
-                Flash.ViewModels.FlashViewModel item = e.Current.Value;
-                item.TickData.UpdateOffer(val);
-            }
-        }
-
-        private void _quote_TickDataBid(TickDataBid val)
-        {
-            Dictionary<string, Flash.ViewModels.FlashViewModel>.Enumerator e = FlashViewModelCollection.GetEnumerator();
-            while (e.MoveNext())
-            {
-                Flash.ViewModels.FlashViewModel item = e.Current.Value;
-                item.TickData.UpdateBid(val);
-            }
-        }
-
-
     }
 }

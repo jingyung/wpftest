@@ -10,8 +10,9 @@ namespace QuoteService
 {
     public class QuoteService : QuoteServiceBase
     {
-        TickData _TickData;
+        Dictionary<string, Dictionary<ITickUpdate, ITickUpdate>> _TickUpdateData = new Dictionary<string, Dictionary<ITickUpdate, ITickUpdate>>();
 
+        TickData _TickData;
         private readonly SynchronizationContext syncContext = SynchronizationContext.Current;
         Dictionary<string, TickDataTrade> _TickDataTrade = new Dictionary<string, TickDataTrade>();
         Dictionary<string, TickDataBid> _TickDataBid = new Dictionary<string, TickDataBid>();
@@ -55,6 +56,13 @@ namespace QuoteService
                     {
                         TickDataTrade item = e.Current.Value;
                         OnTickDataTrade(item);
+                        if (_TickUpdateData.TryGetValue(item.SymbolContract.Key,out var val))
+                        {
+                            foreach(ITickUpdate key in val.Keys)
+                            {
+                                key.onTickDataTrade(item);
+                            }
+                        }
                     }
                     int Count_TickDataTrade = _TickDataTrade.Count;
                     _TickDataTrade.Clear();
@@ -68,6 +76,13 @@ namespace QuoteService
                     {
                         TickDataBid item = e.Current.Value;
                         OnTickDataBid(item);
+                        if (_TickUpdateData.TryGetValue(item.SymbolContract.Key, out var val))
+                        {
+                            foreach (ITickUpdate key in val.Keys)
+                            {
+                                key.onTickDataBid(item);
+                            }
+                        }
                     }
                     int Count_TickDataTrade = _TickDataBid.Count;
                     _TickDataBid.Clear();
@@ -80,6 +95,13 @@ namespace QuoteService
                     {
                         TickDataOffer item = e.Current.Value;
                         OnTickDataOffer(item);
+                        if (_TickUpdateData.TryGetValue(item.SymbolContract.Key, out var val))
+                        {
+                            foreach (ITickUpdate key in val.Keys)
+                            {
+                                key.onTickDataOffer(item);
+                            }
+                        }
                     }
                     int Count_TickDataOffer = _TickDataOffer.Count;
                     _TickDataOffer.Clear();
@@ -144,13 +166,32 @@ namespace QuoteService
             _api.FConnect(pHost, pPort);
         }
 
-        public override void Subscribe(SymbolContract SymbolContract)
+        public override void Subscribe(SymbolContract SymbolContract, ITickUpdate IView)
         {
+            if (_TickUpdateData.TryGetValue(SymbolContract.Key, out var tickUpdates))
+            {
+
+                _TickUpdateData[SymbolContract.Key][IView] = IView;
+            }
+            else
+            {
+                tickUpdates = new Dictionary<ITickUpdate, ITickUpdate>();
+                tickUpdates[IView] = IView;
+                _TickUpdateData[SymbolContract.Key] = tickUpdates;
+
+            }
             _api.SubscribeForginPrice(SymbolContract.Exchange, SymbolContract.Symbol, SymbolContract.YearMonth, ((char)SymbolContract.CP).ToString(), SymbolContract.StrikePrice);
         }
 
-        public override void UnSubscribe(SymbolContract SymbolContract)
+        public override void UnSubscribe(SymbolContract SymbolContract, ITickUpdate IView)
         {
+            if (_TickUpdateData.TryGetValue(SymbolContract.Key, out var tickUpdates))
+            {
+
+                _TickUpdateData[SymbolContract.Key].Remove(IView);
+            }
+            
+
             _api.unSubscribeForginPrice(SymbolContract.Exchange, SymbolContract.Symbol, SymbolContract.YearMonth, ((char)SymbolContract.CP).ToString(), SymbolContract.StrikePrice);
 
         }

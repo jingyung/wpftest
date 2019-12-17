@@ -16,7 +16,7 @@ using System.Data;
 
 namespace Flash.ViewModels
 {
-    public class FlashViewModel : BindableBase
+    public class FlashViewModel : BindableBase, ITickUpdate
     {
         public Flash.Views.FlashView View;
         IUnityContainer _container;
@@ -35,8 +35,6 @@ namespace Flash.ViewModels
             set
             {
                 _symbolContract = value;
-
-
             }
         }
         public FlashViewModel(IRegionManager regionManager, IUnityContainer container, IEventAggregator eventAggregator)
@@ -53,12 +51,28 @@ namespace Flash.ViewModels
             View.dgPrice.Items.SortDescriptions.Add(new SortDescription("Price", ListSortDirection.Descending));
             TickData data = _quote.Query(_symbolContract, "");
             TickData.init(data);
-            _quote.Subscribe(_symbolContract);
+            _quote.Subscribe(_symbolContract,this);
 
         }
         public void MiddleView()
         {
             View.dgPrice.ScrollIntoView(TickData.GetLastTrade());
+        }
+
+        public void onTickDataTrade(TickDataTrade val)
+        {
+            TickData.UpdateLastTrade(val);
+            MiddleView();
+        }
+
+        public void onTickDataOffer(TickDataOffer val)
+        {
+            TickData.UpdateOffer(val);
+        }
+
+        public void onTickDataBid(TickDataBid val)
+        {
+            TickData.UpdateBid(val);
         }
     }
 }
