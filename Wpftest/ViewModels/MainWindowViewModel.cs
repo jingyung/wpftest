@@ -15,8 +15,7 @@ namespace Wpftest.ViewModels
 {
     public class MainWindowViewModel
     {
-        public Dictionary<string, Flash.ViewModels.FlashViewModel> FlashViewModelCollection = new Dictionary<string, Flash.ViewModels.FlashViewModel>();
-        public MdiContainer MdiContainer;
+       public MdiContainer MdiContainer;
         IUnityContainer _container;
         QuoteServiceBase _quote;
         IRegionManager _regionManager;
@@ -63,8 +62,7 @@ namespace Wpftest.ViewModels
             FlashOrder.Views.FlashOrderView view = new FlashOrder.Views.FlashOrderView();
             ((FlashOrder.ViewModels.FlashOrderViewModel)view.DataContext).SymbolContract = new SymbolContract("CBT", "YM", "201912", CPEnum.Future, "");
            // _regionManager.Regions["test"].Add(view, "FlashOrder" + _regionManager.Regions["test"].Views.Count().ToString(), false);
-            FlashViewModelCollection.Add(Guid.NewGuid().ToString(), (Flash.ViewModels.FlashViewModel)view.FlashView.DataContext);
-            MdiContainer.AddMDIChild(view);
+              MdiContainer.AddMDIChild(view);
 
         }
     }

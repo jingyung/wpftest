@@ -37,7 +37,7 @@ namespace QuoteService
                 {
 
                     syncContext.Post(new SendOrPostCallback(ExcuteFDisplay), null);
-                    Thread.Sleep(10);
+                    Thread.Sleep(50);
                 }
             }, TaskCreationOptions.LongRunning);
         }
@@ -76,6 +76,7 @@ namespace QuoteService
                     {
                         TickDataBid item = e.Current.Value;
                         OnTickDataBid(item);
+ 
                         if (_TickUpdateData.TryGetValue(item.SymbolContract.Key, out var val))
                         {
                             foreach (ITickUpdate key in val.Keys)
