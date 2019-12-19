@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Unity;
 using wpf.control;
 
@@ -15,7 +16,8 @@ namespace Wpftest.ViewModels
 {
     public class MainWindowViewModel
     {
-       public MdiContainer MdiContainer;
+        private KeyboardListener listener;
+        public MdiContainer MdiContainer;
         IUnityContainer _container;
         QuoteServiceBase _quote;
         IRegionManager _regionManager;
@@ -32,16 +34,17 @@ namespace Wpftest.ViewModels
         {
             _regionManager = regionManager;
             _container = container;
-     
+
             Region r = new Region();
             r.Name = "test";
             _regionManager.Regions.Add(r);
+        
         }
 
-
+ 
         private void Quote_Connected()
         {
-           //_quote.Subscribe(new SymbolContract("HKF", "HSI", "201912", CPEnum.Future, ""));
+            //_quote.Subscribe(new SymbolContract("HKF", "HSI", "201912", CPEnum.Future, ""));
         }
         private void Quote_Disconnected()
         {
@@ -53,16 +56,27 @@ namespace Wpftest.ViewModels
 
             _quote.Connected += Quote_Connected;
             _quote.Disconnected += Quote_Disconnected;
-            _quote.Connect("122.147.227.116", 7113);
-          
+            _quote.Connect("172.16.204.217", 7113);
+            listener = new KeyboardListener();
+            listener.KeyboardDownEvent += ListenerOnKeyPressed;
+
+
+
+
+        }
+        private void ListenerOnKeyPressed(object sender, KeyEventArgs e)
+        {
+
         }
         private void ExecuteClick(object obj)
         {
-        
-            FlashOrder.Views.FlashOrderView view = new FlashOrder.Views.FlashOrderView();
-            ((FlashOrder.ViewModels.FlashOrderViewModel)view.DataContext).SymbolContract = new SymbolContract("CBT", "YM", "201912", CPEnum.Future, "");
-           // _regionManager.Regions["test"].Add(view, "FlashOrder" + _regionManager.Regions["test"].Views.Count().ToString(), false);
-              MdiContainer.AddMDIChild(view);
+            for (int i = 0; i < 1; i++)
+            {
+                FlashOrder.Views.FlashOrderView view = new FlashOrder.Views.FlashOrderView();
+                ((FlashOrder.ViewModels.FlashOrderViewModel)view.DataContext).SymbolContract = new SymbolContract("HKF", "HSI", "201912", CPEnum.Future, "");
+                MdiContainer.AddMDIChild(view);
+            }
+
 
         }
     }

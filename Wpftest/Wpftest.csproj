@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="KeyboardListener.cs" />
     <Compile Include="MdiRegionAdapter.cs" />
     <Compile Include="PrismWindow.xaml.cs">
       <DependentUpon>PrismWindow.xaml</DependentUpon>
