@@ -1,0 +1,90 @@
+﻿<Window x:Class="wpf.control.OverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpf.control"
+        mc:Ignorable="d"
+        Title="OverlayWindow" Height="300" Width="300" AllowsTransparency="True" Background="Transparent" WindowStyle="None" ShowInTaskbar="False" >
+    <Grid>
+        <DockPanel Name="panelDrag" >
+            <Button Name="btnDockLeft" DockPanel.Dock="Left" Width="32" Height="30" >
+                <Button.Template>
+                    <ControlTemplate>
+                        <Image Source="images\DockLeft.png"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Name="btnDockRight" DockPanel.Dock="Right"  Width="32" Height="29" >
+                <Button.Template>
+                    <ControlTemplate>
+                        <Image Source="images\DockRight.png"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Name="btnDockBottom" DockPanel.Dock="Bottom" Width="30" Height="32" >
+                <Button.Template>
+                    <ControlTemplate>
+                        <Image Source="images\DockBottom.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Name="btnDockTop" VerticalAlignment="Top" Width="30" Height="32" >
+                <Button.Template>
+                    <ControlTemplate>
+                        <Image Source="images\DockTop.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </DockPanel>
+        <Canvas>
+            <Grid Name="gridPaneRelativeDockingOptions" Visibility="Collapsed" Width="88" Height="88">
+                <!--<Grid.BitmapEffect>
+					<OuterGlowBitmapEffect GlowColor="Black" GlowSize="5" Noise="0" Opacity="0.4" />
+				</Grid.BitmapEffect>-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Source="images\DockPane.png" Grid.ColumnSpan="3" Grid.RowSpan="3" Stretch="Fill"/>
+                <Button Name="btnDockPaneTop" Grid.Column="1" Grid.Row="0">
+                    <Button.Template>
+                        <ControlTemplate>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <!--Style="{StaticResource DragPaneButtonStyle}"-->
+                <Button Name="btnDockPaneRight"  Grid.Column="2" Grid.Row="1">
+                    <Button.Template>
+                        <ControlTemplate>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Name="btnDockPaneBottom" Grid.Column="1" Grid.Row="2">
+                    <Button.Template>
+                        <ControlTemplate>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Name="btnDockPaneLeft"  Grid.Column="0" Grid.Row="1">
+                    <Button.Template>
+                        <ControlTemplate>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Name="btnDockPaneInto" Grid.Column="1" Grid.Row="1">
+                    <Button.Template>
+                        <ControlTemplate>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Canvas>
+    </Grid>
+</Window>

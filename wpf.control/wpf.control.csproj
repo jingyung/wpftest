@@ -51,7 +51,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomWindow.cs" />
+    <Compile Include="IDockPane.cs" />
+    <Compile Include="IDropSurface.cs" />
+    <Compile Include="OverlayWindow.xaml.cs">
+      <DependentUpon>OverlayWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utility.cs" />
+    <Page Include="OverlayWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Aero.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -150,6 +159,14 @@
     <Resource Include="Themes\Luna\TopMiddleUnfocused.png" />
     <Resource Include="Themes\Luna\TopRightFocused.png" />
     <Resource Include="Themes\Luna\TopRightUnfocused.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="images\DockBottom.PNG" />
+    <Resource Include="images\DockLeft.PNG" />
+    <Resource Include="images\DockPane.PNG" />
+    <Resource Include="images\DockRight.PNG" />
+    <Resource Include="images\DockTop.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
