@@ -70,13 +70,13 @@ namespace Wpftest.ViewModels
         }
         private void ExecuteClick(object obj)
         {
-            for (int i = 0; i < 1; i++)
-            {
-                FlashOrder.Views.FlashOrderView view = new FlashOrder.Views.FlashOrderView();
-                ((FlashOrder.ViewModels.FlashOrderViewModel)view.DataContext).SymbolContract = new SymbolContract("HKF", "HSI", "201912", CPEnum.Future, "");
-                MdiContainer.AddMDIChild(view);
-            }
-
+            //for (int i = 0; i < 1; i++)
+            //{
+            //    FlashOrder.Views.FlashOrderView view = new FlashOrder.Views.FlashOrderView();
+            //    ((FlashOrder.ViewModels.FlashOrderViewModel)view.DataContext).SymbolContract = new SymbolContract("HKF", "HSI", "201912", CPEnum.Future, "");
+            //    MdiContainer.AddMDIChild(view);
+            //}
+            MdiContainer.AddMDIChild(new System.Windows.Controls.UserControl());
 
         }
     }

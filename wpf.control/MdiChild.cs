@@ -11,8 +11,28 @@ using System.Collections.Generic;
 namespace wpf.control
 {
     [ContentProperty("Content")]
-    public class MdiChild : Control
+    public class MdiChild : Control, IDropSurface
     {
+        public List<IDropSurface> Surfaces;
+
+        public OverlayWindow OverlayWindow;
+
+        public Rect SurfaceRectangle
+        {
+            get
+            {
+                double y = this.PointToScreen(this.Position).Y * Utility.GetDpiRatio() - this.Position.Y;
+                double x = this.PointToScreen(this.Position).X * Utility.GetDpiRatio() - this.Position.X;
+                return new Rect(new Point(x, y), new Size(ActualWidth, ActualHeight));
+            }
+        }
+
+        public MdiChild getMdiChild
+        {
+
+            get { return this; }
+        }
+
         internal const int MinimizedWidth = 160;
         internal const int MinimizedHeight = 29;
         public static readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(UIElement), typeof(MdiChild));
@@ -76,6 +96,8 @@ namespace wpf.control
 
         WindowState NonMaximizedState { get; set; }
 
+
+
         static MdiChild()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MdiChild), new FrameworkPropertyMetadata(typeof(MdiChild)));
@@ -87,6 +109,8 @@ namespace wpf.control
             GotFocus += MdiChild_GotFocus;
             KeyDown += MdiChild_KeyDown;
             Container = pContainer;
+            OverlayWindow = new OverlayWindow(Container.Surfaces);
+
         }
         private void MdiChild_Loaded(object sender, RoutedEventArgs e)
         {
@@ -148,6 +172,7 @@ namespace wpf.control
             {
                 dragThumb.DragStarted += Thumb_DragStarted;
                 dragThumb.DragDelta += dragThumb_DragDelta;
+                dragThumb.DragCompleted += DragThumb_DragCompleted;
 
                 dragThumb.MouseDoubleClick += (sender, e) =>
                 {
@@ -249,6 +274,7 @@ namespace wpf.control
             MaximizeBoxValueChanged(this, new DependencyPropertyChangedEventArgs(MaximizeBoxProperty, true, MaximizeBox));
             CloseBoxValueChanged(this, new DependencyPropertyChangedEventArgs(CloseBoxProperty, true, CloseBox));
         }
+
 
 
         private void WindowOutSideButton_Click(object sender, RoutedEventArgs e)
@@ -354,9 +380,50 @@ namespace wpf.control
                 newLeft = 0;
             if (newTop < 0)
                 newTop = 0;
+            Point p = new Point(PointToScreen(Position).X * Utility.GetDpiRatio() - Position.X, PointToScreen(Position).Y * Utility.GetDpiRatio() - Position.Y);
 
+            foreach (IDropSurface surface in Container.Surfaces)
+            {
+                if (surface != this)
+                    if (surface.SurfaceRectangle.IntersectsWith(SurfaceRectangle))
+                    {
+                        if (surface.getMdiChild != null)
+                        {
+                            surface.getMdiChild.OverlayWindow.Left = surface.getMdiChild.PointToScreen(surface.getMdiChild.Position).X * Utility.GetDpiRatio() - surface.getMdiChild.Position.X;
+                            surface.getMdiChild.OverlayWindow.Top = surface.getMdiChild.PointToScreen(surface.getMdiChild.Position).Y * Utility.GetDpiRatio() - surface.getMdiChild.Position.Y;
+                            surface.getMdiChild.OverlayWindow.Height = surface.getMdiChild.ActualHeight;
+                            surface.getMdiChild.OverlayWindow.Width = surface.getMdiChild.Width;
+
+                            surface.getMdiChild.OverlayWindow.ShowOverlayPaneDockingOptions(surface.SurfaceRectangle);
+                            surface.getMdiChild.OverlayWindow.Show();
+                        }
+                        else
+                        {
+                            surface.OnDragOver(p);
+                        }
+                    }
+
+            }
+            this.Title = $"({newLeft},{newTop}) ({PointToScreen(Position).X * Utility.GetDpiRatio()},{PointToScreen(Position).Y * Utility.GetDpiRatio()})";
             Position = new Point(newLeft, newTop);
+
             Container.InvalidateSize();
+        }
+        private void DragThumb_DragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            foreach (IDropSurface surface in Container.Surfaces)
+            {
+                if (surface != this)
+                    if (surface.getMdiChild != null)
+                    {
+                        if (surface.SurfaceRectangle.IntersectsWith(SurfaceRectangle))
+                        {
+                            surface.getMdiChild.OverlayWindow.Hide();
+                        }
+                        else surface.getMdiChild.OverlayWindow.Hide();
+                    }
+              
+            }
         }
 
         private static void PositionValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -621,7 +688,6 @@ namespace wpf.control
                 t.WindowOutSideBox = true;
                 t.Width = mdiChild.Width;
                 t.Height = mdiChild.Height;
-
                 t.Top = mdiChild.PointToScreen(mdiChild.Position).Y * Utility.GetDpiRatio() - mdiChild.Position.Y;
                 t.Left = mdiChild.PointToScreen(mdiChild.Position).X * Utility.GetDpiRatio() - mdiChild.Position.X;
                 t.Show();
@@ -656,6 +722,24 @@ namespace wpf.control
 
         }
 
+        void IDropSurface.OnDragEnter(Point point)
+        {
 
+        }
+
+        void IDropSurface.OnDragOver(Point point)
+        {
+
+        }
+
+        void IDropSurface.OnDragLeave(Point point)
+        {
+
+        }
+
+        bool IDropSurface.OnDrop(Point point)
+        {
+            return false;
+        }
     }
 }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="OverlayWindow" Height="300" Width="300" AllowsTransparency="True" Background="Transparent" WindowStyle="None" ShowInTaskbar="False" >
     <Grid>
-        <DockPanel Name="panelDrag" >
+        <DockPanel Name="panelDrag" Visibility="Hidden" >
             <Button Name="btnDockLeft" DockPanel.Dock="Left" Width="32" Height="30" >
                 <Button.Template>
                     <ControlTemplate>
@@ -37,11 +37,8 @@
                 </Button.Template>
             </Button>
         </DockPanel>
-        <Canvas>
-            <Grid Name="gridPaneRelativeDockingOptions" Visibility="Collapsed" Width="88" Height="88">
-                <!--<Grid.BitmapEffect>
-					<OuterGlowBitmapEffect GlowColor="Black" GlowSize="5" Noise="0" Opacity="0.4" />
-				</Grid.BitmapEffect>-->
+        <Canvas >
+          <Grid Name="gridPaneRelativeDockingOptions"   Width="88" Height="88"  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -85,6 +82,8 @@
                     </Button.Template>
                 </Button>
             </Grid>
+            
         </Canvas>
+       
     </Grid>
 </Window>

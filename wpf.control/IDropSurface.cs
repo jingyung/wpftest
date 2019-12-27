@@ -10,8 +10,9 @@ using System.Windows.Shapes;
 
 namespace wpf.control
 {
-    interface IDropSurface
+ public   interface IDropSurface
     {
+        MdiChild getMdiChild { get; }
         Rect SurfaceRectangle { get;}
         void OnDragEnter(Point point);
         void OnDragOver(Point point);

@@ -48,6 +48,10 @@ namespace Wpftest
             keyboardThread = new Thread(StartKeyboardListener) { IsBackground = true };
             keyboardThread.Start();
         }
+        ~KeyboardListener()
+        {
+            Dispose();
+        }
 
         private void StartKeyboardListener()
         {

@@ -14,6 +14,7 @@ namespace wpf.control
     [ContentProperty("Children")]
     public class MdiContainer : UserControl
     {
+        public List<IDropSurface> Surfaces = new List<IDropSurface>();
         const int WindowOffset = 25;
         private static ResourceDictionary currentResourceDictionary;
         public static readonly DependencyProperty ThemeProperty = DependencyProperty.Register("Theme", typeof(ThemeType), typeof(MdiContainer), new UIPropertyMetadata(ThemeType.Aero, new PropertyChangedCallback(ThemeValueChanged)));
@@ -209,6 +210,9 @@ namespace wpf.control
 
             if (_windowCanvas.Height != largestPoint.Y)
                 _windowCanvas.Height = largestPoint.Y;
+
+
+
         }
         internal MdiChild GetTopChild()
         {
@@ -466,7 +470,11 @@ namespace wpf.control
 
         public void AddMDIChild(UIElement pContent)
         {
-            this.Children.Add(new MdiChild(this) { Content = pContent });
+            MdiChild m = new MdiChild(this) { Content = pContent, Surfaces = Surfaces };
+            this.Children.Add(m);
+            if (!Surfaces.Contains(m))
+                Surfaces.Add(m);
+          
         }
 
     }

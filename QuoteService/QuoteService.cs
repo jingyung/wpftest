@@ -56,9 +56,9 @@ namespace QuoteService
                     {
                         TickDataTrade item = e.Current.Value;
                         OnTickDataTrade(item);
-                        if (_TickUpdateData.TryGetValue(item.SymbolContract.Key,out var val))
+                        if (_TickUpdateData.TryGetValue(item.SymbolContract.Key, out var val))
                         {
-                            foreach(ITickUpdate key in val.Keys)
+                            foreach (ITickUpdate key in val.Keys)
                             {
                                 key.onTickDataTrade(item);
                             }
@@ -76,7 +76,7 @@ namespace QuoteService
                     {
                         TickDataBid item = e.Current.Value;
                         OnTickDataBid(item);
- 
+
                         if (_TickUpdateData.TryGetValue(item.SymbolContract.Key, out var val))
                         {
                             foreach (ITickUpdate key in val.Keys)
@@ -191,7 +191,7 @@ namespace QuoteService
 
                 _TickUpdateData[SymbolContract.Key].Remove(IView);
             }
-            
+
 
             _api.unSubscribeForginPrice(SymbolContract.Exchange, SymbolContract.Symbol, SymbolContract.YearMonth, ((char)SymbolContract.CP).ToString(), SymbolContract.StrikePrice);
 

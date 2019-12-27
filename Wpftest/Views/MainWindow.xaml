@@ -9,7 +9,7 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
           xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        Title="MainWindow" Height="450" Width="800"  >
+          Height="450" Width="800" Left="0" Top="0" >
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <prism:InvokeCommandAction Command="{Binding ExecuteLoadDelegateCommand}" />

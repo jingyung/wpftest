@@ -191,7 +191,7 @@ namespace wpf.control
                 newTop = 0;
             this.Left = newLeft;
             this.Top = newTop;
- 
+            this.Title = $"({newLeft},{newTop})  ";
         }
 
         private void Thumb_DragStarted(object sender, DragStartedEventArgs e)
